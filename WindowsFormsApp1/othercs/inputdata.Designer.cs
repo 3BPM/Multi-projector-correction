@@ -31,257 +31,292 @@ namespace WindowsFormsApp1.othercs
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.widMov = new System.Windows.Forms.TextBox();
-            this.widMovLabel = new System.Windows.Forms.Label();
-            this.color = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.z = new System.Windows.Forms.TextBox();
-            this.zlabel = new System.Windows.Forms.Label();
-            this.exit = new System.Windows.Forms.Button();
-            this.col = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.widCir = new System.Windows.Forms.TextBox();
-            this.widCirLable = new System.Windows.Forms.Label();
-            this.cancel = new System.Windows.Forms.Button();
-            this.save = new System.Windows.Forms.Button();
-            this.row = new System.Windows.Forms.TextBox();
-            this.length = new System.Windows.Forms.Label();
-            this.y = new System.Windows.Forms.TextBox();
-            this.ylable = new System.Windows.Forms.Label();
-            this.x = new System.Windows.Forms.TextBox();
-            this.xlabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            //
+            panel1 = new Panel();
+            widMov = new TextBox();
+            widMovLabel = new Label();
+            color = new TextBox();
+            label2 = new Label();
+            z = new TextBox();
+            zlabel = new Label();
+            exit = new Button();
+            col = new TextBox();
+            label1 = new Label();
+            widCir = new TextBox();
+            widCirLable = new Label();
+            cancel = new Button();
+            save = new Button();
+            row = new TextBox();
+            length = new Label();
+            y = new TextBox();
+            ylable = new Label();
+            x = new TextBox();
+            xlabel = new Label();
+            pictureBox1 = new PictureBox();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
+            // 
             // panel1
-            //
-            this.panel1.AllowDrop = true;
-            this.panel1.Controls.Add(this.widMov);
-            this.panel1.Controls.Add(this.widMovLabel);
-            this.panel1.Controls.Add(this.color);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.z);
-            this.panel1.Controls.Add(this.zlabel);
-            this.panel1.Controls.Add(this.exit);
-            this.panel1.Controls.Add(this.col);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.widCir);
-            this.panel1.Controls.Add(this.widCirLable);
-            this.panel1.Controls.Add(this.cancel);
-            this.panel1.Controls.Add(this.save);
-            this.panel1.Controls.Add(this.row);
-            this.panel1.Controls.Add(this.length);
-            this.panel1.Controls.Add(this.y);
-            this.panel1.Controls.Add(this.ylable);
-            this.panel1.Controls.Add(this.x);
-            this.panel1.Controls.Add(this.xlabel);
-            this.panel1.Location = new System.Drawing.Point(45, 25);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 178);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            //
+            // 
+            panel1.AllowDrop = true;
+            panel1.Controls.Add(widMov);
+            panel1.Controls.Add(widMovLabel);
+            panel1.Controls.Add(color);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(z);
+            panel1.Controls.Add(zlabel);
+            panel1.Controls.Add(exit);
+            panel1.Controls.Add(col);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(widCir);
+            panel1.Controls.Add(widCirLable);
+            panel1.Controls.Add(cancel);
+            panel1.Controls.Add(save);
+            panel1.Controls.Add(row);
+            panel1.Controls.Add(length);
+            panel1.Controls.Add(y);
+            panel1.Controls.Add(ylable);
+            panel1.Controls.Add(x);
+            panel1.Controls.Add(xlabel);
+            panel1.Location = new Point(90, 62);
+            panel1.Margin = new Padding(6, 8, 6, 8);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(400, 445);
+            panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
+            // 
             // widMov
-            //
-            this.widMov.Location = new System.Drawing.Point(142, 90);
-            this.widMov.Name = "widMov";
-            this.widMov.Size = new System.Drawing.Size(39, 21);
-            this.widMov.TabIndex = 22;
-            this.widMov.Text = "1";
-            this.widMov.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
-            //
+            // 
+            widMov.Location = new Point(284, 225);
+            widMov.Margin = new Padding(6, 8, 6, 8);
+            widMov.Name = "widMov";
+            widMov.Size = new Size(74, 35);
+            widMov.TabIndex = 22;
+            widMov.Text = "1";
+            widMov.TextChanged += textBox1_TextChanged_1;
+            // 
             // widMovLabel
-            //
-            this.widMovLabel.AutoSize = true;
-            this.widMovLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.widMovLabel.Location = new System.Drawing.Point(99, 93);
-            this.widMovLabel.Name = "widMovLabel";
-            this.widMovLabel.Size = new System.Drawing.Size(41, 12);
-            this.widMovLabel.TabIndex = 21;
-            this.widMovLabel.Text = "widMov";
-            this.widMovLabel.Click += new System.EventHandler(this.widMov_Click);
-            //
+            // 
+            widMovLabel.AutoSize = true;
+            widMovLabel.ForeColor = SystemColors.Control;
+            widMovLabel.Location = new Point(198, 232);
+            widMovLabel.Margin = new Padding(6, 0, 6, 0);
+            widMovLabel.Name = "widMovLabel";
+            widMovLabel.Size = new Size(86, 30);
+            widMovLabel.TabIndex = 21;
+            widMovLabel.Text = "widMov";
+            widMovLabel.Click += widMov_Click;
+            // 
             // color
-            //
-            this.color.Location = new System.Drawing.Point(44, 90);
-            this.color.Name = "color";
-            this.color.Size = new System.Drawing.Size(47, 21);
-            this.color.TabIndex = 20;
-            this.color.Text = "0";
-            this.color.TextChanged += new System.EventHandler(this.color_TextChanged);
-            //
+            // 
+            color.Location = new Point(88, 225);
+            color.Margin = new Padding(6, 8, 6, 8);
+            color.Name = "color";
+            color.Size = new Size(90, 35);
+            color.TabIndex = 20;
+            color.Text = "0";
+            color.TextChanged += color_TextChanged;
+            // 
             // label2
-            //
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(6, 93);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "color";
-            //
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(12, 232);
+            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(59, 30);
+            label2.TabIndex = 19;
+            label2.Text = "color";
+            // 
             // z
-            //
-            this.z.Location = new System.Drawing.Point(22, 63);
-            this.z.Name = "z";
-            this.z.Size = new System.Drawing.Size(69, 21);
-            this.z.TabIndex = 18;
-            this.z.Text = "1";
-            this.z.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
-            //
+            // 
+            z.Location = new Point(44, 158);
+            z.Margin = new Padding(6, 8, 6, 8);
+            z.Name = "z";
+            z.Size = new Size(134, 35);
+            z.TabIndex = 18;
+            z.Text = "1";
+            z.TextChanged += textBox6_TextChanged;
+            // 
             // zlabel
-            //
-            this.zlabel.AutoSize = true;
-            this.zlabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.zlabel.Location = new System.Drawing.Point(5, 66);
-            this.zlabel.Name = "zlabel";
-            this.zlabel.Size = new System.Drawing.Size(11, 12);
-            this.zlabel.TabIndex = 17;
-            this.zlabel.Text = "z";
-            //
+            // 
+            zlabel.AutoSize = true;
+            zlabel.ForeColor = SystemColors.Control;
+            zlabel.Location = new Point(10, 165);
+            zlabel.Margin = new Padding(6, 0, 6, 0);
+            zlabel.Name = "zlabel";
+            zlabel.Size = new Size(23, 30);
+            zlabel.TabIndex = 17;
+            zlabel.Text = "z";
+            // 
             // exit
-            //
-            this.exit.Location = new System.Drawing.Point(7, 148);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(58, 23);
-            this.exit.TabIndex = 16;
-            this.exit.Text = "exit";
-            this.exit.UseVisualStyleBackColor = true;
-            this.exit.Click += new System.EventHandler(this.exit_Click);
-            //
+            // 
+            exit.Location = new Point(14, 370);
+            exit.Margin = new Padding(6, 8, 6, 8);
+            exit.Name = "exit";
+            exit.Size = new Size(116, 58);
+            exit.TabIndex = 16;
+            exit.Text = "exit";
+            exit.UseVisualStyleBackColor = true;
+            exit.Click += exit_Click;
+            // 
             // col
-            //
-            this.col.Location = new System.Drawing.Point(133, 36);
-            this.col.Name = "col";
-            this.col.Size = new System.Drawing.Size(48, 21);
-            this.col.TabIndex = 15;
-            this.col.Text = "0";
-            this.col.TextChanged += new System.EventHandler(this.col_TextChanged);
-            //
+            // 
+            col.Location = new Point(266, 90);
+            col.Margin = new Padding(6, 8, 6, 8);
+            col.Name = "col";
+            col.Size = new Size(92, 35);
+            col.TabIndex = 15;
+            col.Text = "0";
+            col.TextChanged += col_TextChanged;
+            // 
             // label1
-            //
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(99, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 12);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "col";
-            //
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(198, 98);
+            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(40, 30);
+            label1.TabIndex = 14;
+            label1.Text = "col";
+            // 
             // widCir
-            //
-            this.widCir.Location = new System.Drawing.Point(142, 63);
-            this.widCir.Name = "widCir";
-            this.widCir.Size = new System.Drawing.Size(39, 21);
-            this.widCir.TabIndex = 13;
-            this.widCir.Text = "1";
-            this.widCir.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            //
+            // 
+            widCir.Location = new Point(284, 158);
+            widCir.Margin = new Padding(6, 8, 6, 8);
+            widCir.Name = "widCir";
+            widCir.Size = new Size(74, 35);
+            widCir.TabIndex = 13;
+            widCir.Text = "1";
+            widCir.TextChanged += textBox4_TextChanged;
+            // 
             // widCirLable
-            //
-            this.widCirLable.AutoSize = true;
-            this.widCirLable.ForeColor = System.Drawing.SystemColors.Control;
-            this.widCirLable.Location = new System.Drawing.Point(99, 66);
-            this.widCirLable.Name = "widCirLable";
-            this.widCirLable.Size = new System.Drawing.Size(41, 12);
-            this.widCirLable.TabIndex = 12;
-            this.widCirLable.Text = "widCir";
-            //
+            // 
+            widCirLable.AutoSize = true;
+            widCirLable.ForeColor = SystemColors.Control;
+            widCirLable.Location = new Point(198, 165);
+            widCirLable.Margin = new Padding(6, 0, 6, 0);
+            widCirLable.Name = "widCirLable";
+            widCirLable.Size = new Size(70, 30);
+            widCirLable.TabIndex = 12;
+            widCirLable.Text = "widCir";
+            // 
             // cancel
-            //
-            this.cancel.Location = new System.Drawing.Point(133, 148);
-            this.cancel.Name = "cancel";
-            this.cancel.Size = new System.Drawing.Size(64, 23);
-            this.cancel.TabIndex = 11;
-            this.cancel.Text = "cancel";
-            this.cancel.UseVisualStyleBackColor = true;
-            this.cancel.Click += new System.EventHandler(this.button6_Click);
-            //
+            // 
+            cancel.Location = new Point(266, 370);
+            cancel.Margin = new Padding(6, 8, 6, 8);
+            cancel.Name = "cancel";
+            cancel.Size = new Size(128, 58);
+            cancel.TabIndex = 11;
+            cancel.Text = "cancel";
+            cancel.UseVisualStyleBackColor = true;
+            cancel.Click += button6_Click;
+            // 
             // save
-            //
-            this.save.Location = new System.Drawing.Point(78, 148);
-            this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(44, 23);
-            this.save.TabIndex = 10;
-            this.save.Text = "save";
-            this.save.UseVisualStyleBackColor = true;
-            this.save.Click += new System.EventHandler(this.button5_Click);
-            //
+            // 
+            save.Location = new Point(156, 370);
+            save.Margin = new Padding(6, 8, 6, 8);
+            save.Name = "save";
+            save.Size = new Size(88, 58);
+            save.TabIndex = 10;
+            save.Text = "save";
+            save.UseVisualStyleBackColor = true;
+            save.Click += button5_Click;
+            // 
             // row
-            //
-            this.row.Location = new System.Drawing.Point(133, 6);
-            this.row.Name = "row";
-            this.row.Size = new System.Drawing.Size(48, 21);
-            this.row.TabIndex = 7;
-            this.row.Text = "0";
-            this.row.TextChanged += new System.EventHandler(this.row_TextChanged);
-            //
+            // 
+            row.Location = new Point(266, 15);
+            row.Margin = new Padding(6, 8, 6, 8);
+            row.Name = "row";
+            row.Size = new Size(92, 35);
+            row.TabIndex = 7;
+            row.Text = "0";
+            row.TextChanged += row_TextChanged;
+            // 
             // length
-            //
-            this.length.AutoSize = true;
-            this.length.ForeColor = System.Drawing.SystemColors.Control;
-            this.length.Location = new System.Drawing.Point(99, 9);
-            this.length.Name = "length";
-            this.length.Size = new System.Drawing.Size(23, 12);
-            this.length.TabIndex = 6;
-            this.length.Text = "row";
-            this.length.Click += new System.EventHandler(this.length_Click);
-            //
+            // 
+            length.AutoSize = true;
+            length.ForeColor = SystemColors.Control;
+            length.Location = new Point(198, 22);
+            length.Margin = new Padding(6, 0, 6, 0);
+            length.Name = "length";
+            length.Size = new Size(47, 30);
+            length.TabIndex = 6;
+            length.Text = "row";
+            length.Click += length_Click;
+            // 
             // y
-            //
-            this.y.Location = new System.Drawing.Point(22, 33);
-            this.y.Name = "y";
-            this.y.Size = new System.Drawing.Size(70, 21);
-            this.y.TabIndex = 5;
-            this.y.Text = "0";
-            this.y.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            //
+            // 
+            y.Location = new Point(44, 82);
+            y.Margin = new Padding(6, 8, 6, 8);
+            y.Name = "y";
+            y.Size = new Size(136, 35);
+            y.TabIndex = 5;
+            y.Text = "0";
+            y.TextChanged += textBox1_TextChanged;
+            // 
             // ylable
-            //
-            this.ylable.AutoSize = true;
-            this.ylable.ForeColor = System.Drawing.SystemColors.Control;
-            this.ylable.Location = new System.Drawing.Point(4, 36);
-            this.ylable.Name = "ylable";
-            this.ylable.Size = new System.Drawing.Size(11, 12);
-            this.ylable.TabIndex = 4;
-            this.ylable.Text = "y";
-            //
+            // 
+            ylable.AutoSize = true;
+            ylable.ForeColor = SystemColors.Control;
+            ylable.Location = new Point(8, 90);
+            ylable.Margin = new Padding(6, 0, 6, 0);
+            ylable.Name = "ylable";
+            ylable.Size = new Size(23, 30);
+            ylable.TabIndex = 4;
+            ylable.Text = "y";
+            // 
             // x
-            //
-            this.x.Location = new System.Drawing.Point(22, 6);
-            this.x.Name = "x";
-            this.x.Size = new System.Drawing.Size(70, 21);
-            this.x.TabIndex = 3;
-            this.x.Text = "0";
-            this.x.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            //
+            // 
+            x.Location = new Point(44, 15);
+            x.Margin = new Padding(6, 8, 6, 8);
+            x.Name = "x";
+            x.Size = new Size(136, 35);
+            x.TabIndex = 3;
+            x.Text = "0";
+            x.TextChanged += textBox1_TextChanged;
+            // 
             // xlabel
-            //
-            this.xlabel.AutoSize = true;
-            this.xlabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.xlabel.Location = new System.Drawing.Point(5, 9);
-            this.xlabel.Name = "xlabel";
-            this.xlabel.Size = new System.Drawing.Size(11, 12);
-            this.xlabel.TabIndex = 2;
-            this.xlabel.Text = "x";
-            //
+            // 
+            xlabel.AutoSize = true;
+            xlabel.ForeColor = SystemColors.Control;
+            xlabel.Location = new Point(10, 22);
+            xlabel.Margin = new Padding(6, 0, 6, 0);
+            xlabel.Name = "xlabel";
+            xlabel.Size = new Size(23, 30);
+            xlabel.TabIndex = 2;
+            xlabel.Text = "x";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(2560, 1800);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
             // inputdata
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.MenuText;
-            this.ClientSize = new System.Drawing.Size(1280, 720);
-            this.Controls.Add(this.panel1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.KeyPreview = true;
-            this.Name = "inputdata";
-            this.Text = "inputdata";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-
+            // 
+            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.MenuText;
+            ClientSize = new Size(2560, 1800);
+            Controls.Add(panel1);
+            Controls.Add(pictureBox1);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
+            Margin = new Padding(6, 8, 6, 8);
+            Name = "inputdata";
+            Text = "inputdata";
+            Load += inputdata_Load_1;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -306,5 +341,6 @@ namespace WindowsFormsApp1.othercs
         private Label label2;
         private TextBox widMov;
         private Label widMovLabel;
+        private PictureBox pictureBox1;
     }
 }

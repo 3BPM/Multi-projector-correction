@@ -10,6 +10,15 @@ using System.Windows.Forms;
 
 using System.IO;
 using System.Drawing.Drawing2D;
+using System.Text.RegularExpressions;
+//using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Reg;
+using Emgu.CV.Structure;
+using ImageMagick;
+using System.Threading;
 
 namespace WindowsFormsApp1.othercs
 {
@@ -17,6 +26,7 @@ namespace WindowsFormsApp1.othercs
     {
         private StreamWriter filewrite;
         //FileStream output;
+        private VideoCapture capture;
         //Graphics g;
         private Pen pen = new Pen(Color.Red, 1);
         private Point p = new Point(1000, 500);
@@ -25,6 +35,8 @@ namespace WindowsFormsApp1.othercs
         public inputdata()
         {
             InitializeComponent();
+            capture = new VideoCapture(); // 创建 VideoCapture 对象
+            //capture = new Emgu.CV.VideoCapture();
             KeyPreview = true;
             try
             {
@@ -43,6 +55,7 @@ namespace WindowsFormsApp1.othercs
             this.x.Text = "1000";
             this.y.Text = "500";
         }
+
 
         void inputdata_MouseClick(object sender, MouseEventArgs e)
         {
@@ -229,7 +242,45 @@ namespace WindowsFormsApp1.othercs
 
         private void inputdata_Load(object sender, EventArgs e)
         {
+     
 
+
+        }
+
+        private void inputdata_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            using (var frame = capture.QueryFrame())
+            {
+                if (frame != null)
+                {
+                    Bitmap bitmap = Emgu.CV.BitmapExtension.ToBitmap(frame); // error here because there is no ToBitmap method
+                                                                             // 在 PictureBox 中显示捕获到的帧
+                                                                            // 使用 Invoke 方法将更新操作发送到 UI 线程
+
+
+                    pictureBox1.Image = bitmap;
+
+                }
+            }
+            {
+                // 将捕获到的帧转换为 Bitmap  真**作者把bitmap删了 https://stackoverflow.com/questions/72586978/how-to-convert-mat-to-bitmap-in-c-sharp-using-emgucv
+                //Bitmap bitmap = frame.ToBitMap();
+
+
+
+
+                // using (MagickImage magickImage = new MagickImage())//using 语句用于确保在语句块结束时释放 magickImage 对象。
+
+                //MagickImage magickImage = new MagickImage();
+                //                          magickImage.Read(frame);
+                //    Bitmap bitmap = magickImage.ToBitmap();
+
+            }
         }
     }
 }

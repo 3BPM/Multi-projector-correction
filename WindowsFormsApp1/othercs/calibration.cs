@@ -10,13 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Emgu.CV;
-using Emgu.CV.CvEnum;
-using Emgu.CV.Reg;
-using Emgu.CV.Structure;
-using ImageMagick;
 
 
 namespace WindowsFormsApp1.othercs
@@ -24,75 +17,18 @@ namespace WindowsFormsApp1.othercs
     public partial class calibration : Form
     {
 
-    
-        private VideoCapture capture;
-        private Thread captureThread;
-   
+
+
+
         private void calibration_Load(object sender, EventArgs e)
         {
-            //capture = new VideoCapture(); // 创建 VideoCapture 对象
-            capture = new Emgu.CV.VideoCapture();
-            captureThread = new Thread(RunCaptureLoop);
-            captureThread.Start();
 
             this.Paint += calibration_Paint;
             this.MouseDoubleClick += calibration_MouseDoubleClick;
         }
-        // 后台线程中的循环
-        private void RunCaptureLoop()
-        {
-            Mat frame = new Mat();
-
-            while (true)
-            {
-                //capture.Read(frame);
-                //BitmapSource bitmap = BitmapSourceConverter.ToBitmapSource(frame);
-                if (capture.Retrieve(frame))
-                {
-                    // 将捕获到的帧转换为 Bitmap  真**作者把bitmap删了 https://stackoverflow.com/questions/72586978/how-to-convert-mat-to-bitmap-in-c-sharp-using-emgucv
-                    //Bitmap bitmap = frame.ToBitMap();
-
-                    Bitmap bitmap = Emgu.CV.BitmapExtension.ToBitmap(frame);
 
 
-                    // using (MagickImage magickImage = new MagickImage())//using 语句用于确保在语句块结束时释放 magickImage 对象。
 
-                    //MagickImage magickImage = new MagickImage();
-                    //                          magickImage.Read(frame);
-                    //    Bitmap bitmap = magickImage.ToBitmap();
-
-                    // 在 PictureBox 中显示捕获到的帧
-                    // 使用 Invoke 方法将更新操作发送到 UI 线程
-                    pictureBox1.Invoke((MethodInvoker)delegate
-                    {
-                        //pictureBox1.Image = ConvertBitmapSourceToBitmap(bitmap);
-                        pictureBox1.Image = bitmap;
-                    });
-                }
-                
-            }
-        }
-
-        // 在窗体关闭事件中停止后台线程和释放资源
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            captureThread?.Abort(); // 停止后台线程
-            capture?.Dispose(); // 释放 VideoCapture 对象
-        }
-
-        // 将 BitmapSource 转换为 Bitmap
-        private Bitmap ConvertBitmapSourceToBitmap(BitmapSource bitmapSource)
-        {
-            Bitmap bitmap;
-            using (var stream = new System.IO.MemoryStream())
-            {
-                BitmapEncoder encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                encoder.Save(stream);
-                bitmap = new Bitmap(stream);
-            }
-            return bitmap;
-        }
         void calibration_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.exit.Left = e.X;

@@ -6,14 +6,14 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject>WindowsFormsApp1.Program</StartupObject>
-    <ApplicationIcon>Quantum.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Remove="othercs\draw_line.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Quantum.ico" />
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Emgu.CV" Version="4.8.1.5350" />
