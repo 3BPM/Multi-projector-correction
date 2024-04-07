@@ -12,13 +12,11 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 //using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Emgu.CV;
-using Emgu.CV.CvEnum;
-using Emgu.CV.Reg;
-using Emgu.CV.Structure;
-using ImageMagick;
-using System.Threading;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+
+using Windows.Media.Capture;
+
 
 namespace WindowsFormsApp1.othercs
 {
@@ -26,17 +24,31 @@ namespace WindowsFormsApp1.othercs
     {
         private StreamWriter filewrite;
         //FileStream output;
-        private VideoCapture capture;
+        private VideoCapture _capture;
         //Graphics g;
         private Pen pen = new Pen(Color.Red, 1);
-        private Point p = new Point(1000, 500);
+        private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
         int circlewidth = 1;
         int movewidth = 10;
         public inputdata()
         {
             InitializeComponent();
-            capture = new VideoCapture(); // 创建 VideoCapture 对象
-            //capture = new Emgu.CV.VideoCapture();
+            _capture = new VideoCapture(0, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
+
+            //if (_capture != null)
+            //{
+            //    _capture.Open(0); // 打开摄像头
+
+            //    if (_capture.IsOpened())
+            //    {
+            //        // 设置图像宽度和高度
+            //        _capture.FrameWidth = 640;
+            //        _capture.FrameHeight = 480;
+
+            //        // 开始捕获视频帧
+            //        Application.Idle += CaptureFrame;
+            //    }
+            //}
             KeyPreview = true;
             try
             {
@@ -48,8 +60,8 @@ namespace WindowsFormsApp1.othercs
             {
                 MessageBox.Show("Error Opening File", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.MouseClick += inputdata_MouseClick;
-            this.MouseDoubleClick += inputdata_MouseDoubleClick;
+            this.MouseClick += pictureBox1_Click;
+            this.MouseDoubleClick += pictureBox1_MouseDoubleClick;
             this.KeyDown += inputdata_KeyDown;
             //g = this.CreateGraphics();
             this.x.Text = "1000";
@@ -59,14 +71,44 @@ namespace WindowsFormsApp1.othercs
 
         void inputdata_MouseClick(object sender, MouseEventArgs e)
         {
-            p.X = e.X;
-            p.Y = e.Y;
-            p = this.PointToScreen(p);
-            this.x.Text = e.X.ToString();
-            this.y.Text = e.Y.ToString();
+            //p.X = e.X;
+            //p.Y = e.Y;
+            //p = this.PointToScreen(p);
+            //this.x.Text = e.X.ToString();
+            //this.y.Text = e.Y.ToString();
         }
 
         void inputdata_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            //this.panel1.Left = e.X;
+            //this.panel1.Top = e.Y;
+            //this.Focus();
+        }
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // 在点击 PictureBox 时进行拍摄
+            if (_capture != null && _capture.IsOpened())
+            {
+                Mat frame = new Mat();
+                _capture.Read(frame); // 读取视频帧
+
+                if (!frame.Empty())
+                {
+                    // 将图像转换为 Bitmap 并显示在 PictureBox 中
+                    pictureBox1.Image = frame.ToBitmap();
+
+                    // 可以在此处对图像进行进一步处理或保存等操作
+                }
+            }
+            System.Drawing.Point mousePosition = pictureBox1.PointToClient(Cursor.Position);
+            p.X = mousePosition.X;
+            p.Y = mousePosition.Y;
+           
+            p = this.PointToScreen(p);
+            this.x.Text = mousePosition.X.ToString();
+            this.y.Text = mousePosition.Y.ToString();
+        }
+        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.panel1.Left = e.X;
             this.panel1.Top = e.Y;
@@ -252,35 +294,30 @@ namespace WindowsFormsApp1.othercs
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void CaptureFrame(object sender, EventArgs e)
         {
-            using (var frame = capture.QueryFrame())
+            Mat frame = new Mat();
+            _capture.Read(frame); // 读取视频帧
+
+            if (!frame.Empty())
             {
-                if (frame != null)
-                {
-                    Bitmap bitmap = Emgu.CV.BitmapExtension.ToBitmap(frame); // error here because there is no ToBitmap method
-                                                                             // 在 PictureBox 中显示捕获到的帧
-                                                                            // 使用 Invoke 方法将更新操作发送到 UI 线程
-
-
-                    pictureBox1.Image = bitmap;
-
-                }
-            }
-            {
-                // 将捕获到的帧转换为 Bitmap  真**作者把bitmap删了 https://stackoverflow.com/questions/72586978/how-to-convert-mat-to-bitmap-in-c-sharp-using-emgucv
-                //Bitmap bitmap = frame.ToBitMap();
-
-
-
-
-                // using (MagickImage magickImage = new MagickImage())//using 语句用于确保在语句块结束时释放 magickImage 对象。
-
-                //MagickImage magickImage = new MagickImage();
-                //                          magickImage.Read(frame);
-                //    Bitmap bitmap = magickImage.ToBitmap();
-
+                // 将图像转换为 Bitmap 并显示在 PictureBox 中
+                pictureBox1.Image = frame.ToBitmap();
             }
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_capture != null && _capture.IsOpened())
+            {
+                // 停止捕获视频帧并释放资源
+                Application.Idle -= CaptureFrame;
+                _capture.Release();
+                _capture.Dispose();
+            }
+        }
+
+
     }
-}
+  }
+
