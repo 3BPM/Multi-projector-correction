@@ -85,8 +85,8 @@ namespace WindowsFormsApp1.othercs
         int drawpic_num = 1;
         protected override void OnPaint(PaintEventArgs e)
         {
-            string folderPath = "..\\..\\dataset\\4_29\\";
-            string fileName = "4_29";
+            string folderPath = "C:\\Users\\robert\\Documents\\BaiduSyncdisk\\winform\\";
+            string fileName = "newdata";
 
             string path = Path.Combine(folderPath, fileName);
          

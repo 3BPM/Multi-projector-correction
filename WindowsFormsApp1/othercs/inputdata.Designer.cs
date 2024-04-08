@@ -32,6 +32,8 @@ namespace WindowsFormsApp1.othercs
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label3 = new Label();
+            comboBox1 = new ComboBox();
             widMov = new TextBox();
             widMovLabel = new Label();
             color = new TextBox();
@@ -59,6 +61,8 @@ namespace WindowsFormsApp1.othercs
             // panel1
             // 
             panel1.AllowDrop = true;
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(widMov);
             panel1.Controls.Add(widMovLabel);
             panel1.Controls.Add(color);
@@ -78,19 +82,40 @@ namespace WindowsFormsApp1.othercs
             panel1.Controls.Add(ylable);
             panel1.Controls.Add(x);
             panel1.Controls.Add(xlabel);
-            panel1.Location = new Point(90, 62);
-            panel1.Margin = new Padding(6, 8, 6, 8);
+            panel1.Location = new Point(68, 41);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(400, 445);
+            panel1.Size = new Size(300, 297);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(15, 204);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(82, 20);
+            label3.TabIndex = 23;
+            label3.Text = "camselect";
+            label3.Click += label3_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(119, 201);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 28);
+            comboBox1.TabIndex = 2;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // widMov
             // 
-            widMov.Location = new Point(284, 225);
-            widMov.Margin = new Padding(6, 8, 6, 8);
+            widMov.Location = new Point(213, 150);
+            widMov.Margin = new Padding(4, 5, 4, 5);
             widMov.Name = "widMov";
-            widMov.Size = new Size(74, 35);
+            widMov.Size = new Size(56, 27);
             widMov.TabIndex = 22;
             widMov.Text = "1";
             widMov.TextChanged += textBox1_TextChanged_1;
@@ -99,20 +124,20 @@ namespace WindowsFormsApp1.othercs
             // 
             widMovLabel.AutoSize = true;
             widMovLabel.ForeColor = SystemColors.Control;
-            widMovLabel.Location = new Point(198, 232);
-            widMovLabel.Margin = new Padding(6, 0, 6, 0);
+            widMovLabel.Location = new Point(148, 155);
+            widMovLabel.Margin = new Padding(4, 0, 4, 0);
             widMovLabel.Name = "widMovLabel";
-            widMovLabel.Size = new Size(86, 30);
+            widMovLabel.Size = new Size(68, 20);
             widMovLabel.TabIndex = 21;
             widMovLabel.Text = "widMov";
             widMovLabel.Click += widMov_Click;
             // 
             // color
             // 
-            color.Location = new Point(88, 225);
-            color.Margin = new Padding(6, 8, 6, 8);
+            color.Location = new Point(66, 150);
+            color.Margin = new Padding(4, 5, 4, 5);
             color.Name = "color";
-            color.Size = new Size(90, 35);
+            color.Size = new Size(68, 27);
             color.TabIndex = 20;
             color.Text = "0";
             color.TextChanged += color_TextChanged;
@@ -121,19 +146,19 @@ namespace WindowsFormsApp1.othercs
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(12, 232);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(9, 155);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(59, 30);
+            label2.Size = new Size(47, 20);
             label2.TabIndex = 19;
             label2.Text = "color";
             // 
             // z
             // 
-            z.Location = new Point(44, 158);
-            z.Margin = new Padding(6, 8, 6, 8);
+            z.Location = new Point(33, 105);
+            z.Margin = new Padding(4, 5, 4, 5);
             z.Name = "z";
-            z.Size = new Size(134, 35);
+            z.Size = new Size(102, 27);
             z.TabIndex = 18;
             z.Text = "1";
             z.TextChanged += textBox6_TextChanged;
@@ -142,19 +167,19 @@ namespace WindowsFormsApp1.othercs
             // 
             zlabel.AutoSize = true;
             zlabel.ForeColor = SystemColors.Control;
-            zlabel.Location = new Point(10, 165);
-            zlabel.Margin = new Padding(6, 0, 6, 0);
+            zlabel.Location = new Point(8, 110);
+            zlabel.Margin = new Padding(4, 0, 4, 0);
             zlabel.Name = "zlabel";
-            zlabel.Size = new Size(23, 30);
+            zlabel.Size = new Size(16, 20);
             zlabel.TabIndex = 17;
             zlabel.Text = "z";
             // 
             // exit
             // 
-            exit.Location = new Point(14, 370);
-            exit.Margin = new Padding(6, 8, 6, 8);
+            exit.Location = new Point(10, 247);
+            exit.Margin = new Padding(4, 5, 4, 5);
             exit.Name = "exit";
-            exit.Size = new Size(116, 58);
+            exit.Size = new Size(87, 39);
             exit.TabIndex = 16;
             exit.Text = "exit";
             exit.UseVisualStyleBackColor = true;
@@ -162,10 +187,10 @@ namespace WindowsFormsApp1.othercs
             // 
             // col
             // 
-            col.Location = new Point(266, 90);
-            col.Margin = new Padding(6, 8, 6, 8);
+            col.Location = new Point(200, 60);
+            col.Margin = new Padding(4, 5, 4, 5);
             col.Name = "col";
-            col.Size = new Size(92, 35);
+            col.Size = new Size(70, 27);
             col.TabIndex = 15;
             col.Text = "0";
             col.TextChanged += col_TextChanged;
@@ -174,19 +199,19 @@ namespace WindowsFormsApp1.othercs
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(198, 98);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(139, 63);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(40, 30);
+            label1.Size = new Size(58, 20);
             label1.TabIndex = 14;
-            label1.Text = "col";
+            label1.Text = "colsize";
             // 
             // widCir
             // 
-            widCir.Location = new Point(284, 158);
-            widCir.Margin = new Padding(6, 8, 6, 8);
+            widCir.Location = new Point(213, 105);
+            widCir.Margin = new Padding(4, 5, 4, 5);
             widCir.Name = "widCir";
-            widCir.Size = new Size(74, 35);
+            widCir.Size = new Size(56, 27);
             widCir.TabIndex = 13;
             widCir.Text = "1";
             widCir.TextChanged += textBox4_TextChanged;
@@ -195,19 +220,19 @@ namespace WindowsFormsApp1.othercs
             // 
             widCirLable.AutoSize = true;
             widCirLable.ForeColor = SystemColors.Control;
-            widCirLable.Location = new Point(198, 165);
-            widCirLable.Margin = new Padding(6, 0, 6, 0);
+            widCirLable.Location = new Point(148, 110);
+            widCirLable.Margin = new Padding(4, 0, 4, 0);
             widCirLable.Name = "widCirLable";
-            widCirLable.Size = new Size(70, 30);
+            widCirLable.Size = new Size(55, 20);
             widCirLable.TabIndex = 12;
             widCirLable.Text = "widCir";
             // 
             // cancel
             // 
-            cancel.Location = new Point(266, 370);
-            cancel.Margin = new Padding(6, 8, 6, 8);
+            cancel.Location = new Point(200, 247);
+            cancel.Margin = new Padding(4, 5, 4, 5);
             cancel.Name = "cancel";
-            cancel.Size = new Size(128, 58);
+            cancel.Size = new Size(96, 39);
             cancel.TabIndex = 11;
             cancel.Text = "cancel";
             cancel.UseVisualStyleBackColor = true;
@@ -215,10 +240,10 @@ namespace WindowsFormsApp1.othercs
             // 
             // save
             // 
-            save.Location = new Point(156, 370);
-            save.Margin = new Padding(6, 8, 6, 8);
+            save.Location = new Point(117, 247);
+            save.Margin = new Padding(4, 5, 4, 5);
             save.Name = "save";
-            save.Size = new Size(88, 58);
+            save.Size = new Size(66, 39);
             save.TabIndex = 10;
             save.Text = "save";
             save.UseVisualStyleBackColor = true;
@@ -226,10 +251,10 @@ namespace WindowsFormsApp1.othercs
             // 
             // row
             // 
-            row.Location = new Point(266, 15);
-            row.Margin = new Padding(6, 8, 6, 8);
+            row.Location = new Point(200, 10);
+            row.Margin = new Padding(4, 5, 4, 5);
             row.Name = "row";
-            row.Size = new Size(92, 35);
+            row.Size = new Size(70, 27);
             row.TabIndex = 7;
             row.Text = "0";
             row.TextChanged += row_TextChanged;
@@ -238,20 +263,20 @@ namespace WindowsFormsApp1.othercs
             // 
             length.AutoSize = true;
             length.ForeColor = SystemColors.Control;
-            length.Location = new Point(198, 22);
-            length.Margin = new Padding(6, 0, 6, 0);
+            length.Location = new Point(139, 15);
+            length.Margin = new Padding(4, 0, 4, 0);
             length.Name = "length";
-            length.Size = new Size(47, 30);
+            length.Size = new Size(64, 20);
             length.TabIndex = 6;
-            length.Text = "row";
+            length.Text = "rowsize";
             length.Click += length_Click;
             // 
             // y
             // 
-            y.Location = new Point(44, 82);
-            y.Margin = new Padding(6, 8, 6, 8);
+            y.Location = new Point(33, 55);
+            y.Margin = new Padding(4, 5, 4, 5);
             y.Name = "y";
-            y.Size = new Size(136, 35);
+            y.Size = new Size(103, 27);
             y.TabIndex = 5;
             y.Text = "0";
             y.TextChanged += textBox1_TextChanged;
@@ -260,19 +285,19 @@ namespace WindowsFormsApp1.othercs
             // 
             ylable.AutoSize = true;
             ylable.ForeColor = SystemColors.Control;
-            ylable.Location = new Point(8, 90);
-            ylable.Margin = new Padding(6, 0, 6, 0);
+            ylable.Location = new Point(6, 60);
+            ylable.Margin = new Padding(4, 0, 4, 0);
             ylable.Name = "ylable";
-            ylable.Size = new Size(23, 30);
+            ylable.Size = new Size(17, 20);
             ylable.TabIndex = 4;
             ylable.Text = "y";
             // 
             // x
             // 
-            x.Location = new Point(44, 15);
-            x.Margin = new Padding(6, 8, 6, 8);
+            x.Location = new Point(33, 10);
+            x.Margin = new Padding(4, 5, 4, 5);
             x.Name = "x";
-            x.Size = new Size(136, 35);
+            x.Size = new Size(103, 27);
             x.TabIndex = 3;
             x.Text = "0";
             x.TextChanged += textBox1_TextChanged;
@@ -281,10 +306,10 @@ namespace WindowsFormsApp1.othercs
             // 
             xlabel.AutoSize = true;
             xlabel.ForeColor = SystemColors.Control;
-            xlabel.Location = new Point(10, 22);
-            xlabel.Margin = new Padding(6, 0, 6, 0);
+            xlabel.Location = new Point(8, 15);
+            xlabel.Margin = new Padding(4, 0, 4, 0);
             xlabel.Name = "xlabel";
-            xlabel.Size = new Size(23, 30);
+            xlabel.Size = new Size(17, 20);
             xlabel.TabIndex = 2;
             xlabel.Text = "x";
             // 
@@ -292,24 +317,25 @@ namespace WindowsFormsApp1.othercs
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(2560, 1800);
+            pictureBox1.Size = new Size(1920, 735);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            pictureBox1.Click += inputdataClick;
             // 
             // inputdata
             // 
-            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuText;
-            ClientSize = new Size(2560, 1800);
+            ClientSize = new Size(1920, 735);
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
-            Margin = new Padding(6, 8, 6, 8);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "inputdata";
             Text = "inputdata";
             Load += inputdata_Load_1;
@@ -342,5 +368,7 @@ namespace WindowsFormsApp1.othercs
         private TextBox widMov;
         private Label widMovLabel;
         private PictureBox pictureBox1;
+        private Label label3;
+        private ComboBox comboBox1;
     }
 }

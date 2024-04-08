@@ -16,7 +16,10 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 
 using Windows.Media.Capture;
-
+using System.Threading;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Management;
 
 namespace WindowsFormsApp1.othercs
 {
@@ -30,26 +33,25 @@ namespace WindowsFormsApp1.othercs
         private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
         int circlewidth = 1;
         int movewidth = 10;
+        static bool isDrawingRect = false;
+        static System.Drawing.Point rectStartPoint;
+        private static VideoCapture my_VideoCapture;//摄像头设备
+        private static bool Vopen_flag; //视频打开关闭状态
+        Thread Video_thread; //视频播放线程
+        private int VideoCapture_id = 0;//摄像头设备号，默认0，可根据下拉框调整
+        private bool Collimator_flag;//十字准星标识符
+        private bool ROI_flag;//ROI区域标识符
+        private bool FlipX_flag;//左右翻转标识符
+        private bool FlipY_flag;//上下翻转标识符
+        List<CameraDevice> cameras;
         public inputdata()
         {
             InitializeComponent();
-            _capture = new VideoCapture(0, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
-
-            //if (_capture != null)
-            //{
-            //    _capture.Open(0); // 打开摄像头
-
-            //    if (_capture.IsOpened())
-            //    {
-            //        // 设置图像宽度和高度
-            //        _capture.FrameWidth = 640;
-            //        _capture.FrameHeight = 480;
-
-            //        // 开始捕获视频帧
-            //        Application.Idle += CaptureFrame;
-            //    }
-            //}
-            KeyPreview = true;
+    
+           // string imagePath = @"bg5.jpg";
+            //this.BackgroundImage = Image.FromFile(imagePath);
+           // this.BackgroundImageLayout = ImageLayout.Stretch;
+            _capture = new VideoCapture(VideoCapture_id, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
             try
             {
                 //output = new FileStream(path, FileMode.Append, FileAccess.Write);
@@ -60,31 +62,31 @@ namespace WindowsFormsApp1.othercs
             {
                 MessageBox.Show("Error Opening File", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.MouseClick += pictureBox1_Click;
-            this.MouseDoubleClick += pictureBox1_MouseDoubleClick;
+            cameras = GetAllConnectedCameras();
+
+            // 绑定数据源
+            comboBox1.DataSource = cameras;
+            comboBox1.DisplayMember = "Name";
+
+            //// 创建自定义项模板
+            //ComboBoxItemTemplate template = new ComboBoxItemTemplate();
+            //template.Text = "${Name} - ${Status}";
+
+            //// 将模板应用于 ComboBox
+            //comboBox1.ItemTemplate = template;
+            this.MouseClick += inputdataClick;
+            this.MouseDoubleClick += inputdataMouseDoubleClick;
+            this.MouseMove += pictureBox1_MouseMove;
+            this.MouseDown += pictureBox1_MouseDown;
             this.KeyDown += inputdata_KeyDown;
             //g = this.CreateGraphics();
-            this.x.Text = "1000";
-            this.y.Text = "500";
+            this.x.Text = "0";
+            this.y.Text = "0";
         }
 
 
-        void inputdata_MouseClick(object sender, MouseEventArgs e)
-        {
-            //p.X = e.X;
-            //p.Y = e.Y;
-            //p = this.PointToScreen(p);
-            //this.x.Text = e.X.ToString();
-            //this.y.Text = e.Y.ToString();
-        }
 
-        void inputdata_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            //this.panel1.Left = e.X;
-            //this.panel1.Top = e.Y;
-            //this.Focus();
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void inputdataClick(object sender, EventArgs e)
         {
             // 在点击 PictureBox 时进行拍摄
             if (_capture != null && _capture.IsOpened())
@@ -101,20 +103,51 @@ namespace WindowsFormsApp1.othercs
                 }
             }
             System.Drawing.Point mousePosition = pictureBox1.PointToClient(Cursor.Position);
+    
             p.X = mousePosition.X;
             p.Y = mousePosition.Y;
-           
+
             p = this.PointToScreen(p);
             this.x.Text = mousePosition.X.ToString();
             this.y.Text = mousePosition.Y.ToString();
+
+            // 开始绘制矩形
+            isDrawingRect = true;
+
+            // 设置矩形起点为鼠标双击位置
+            rectStartPoint = mousePosition;
+
+            this.Focus();
         }
-        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void inputdataMouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.panel1.Left = e.X;
             this.panel1.Top = e.Y;
-            this.Focus();
+        }
+        static void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDrawingRect)
+            {
+                // 在鼠标移动时绘制矩形
+                var pictureBox = (PictureBox)sender;
+                var rectEnd = e.Location;
+                var rect = new Rectangle(rectStartPoint, new System.Drawing.Size(rectEnd.X - rectStartPoint.X, rectEnd.Y - rectStartPoint.Y));
+                pictureBox.Invalidate();
+                pictureBox.CreateGraphics().DrawRectangle(Pens.Red, rect);
+            }
         }
 
+
+        static void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (isDrawingRect)
+            {
+                // 结束矩形绘制
+                isDrawingRect = false;
+                var pictureBox = (PictureBox)sender;
+                pictureBox.Invalidate();
+            }
+        }
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down)
@@ -175,9 +208,10 @@ namespace WindowsFormsApp1.othercs
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)//save
         {
-            string data = this.row.Text + " " + this.col.Text + " " + this.z.Text + " " + this.x.Text + " " + this.y.Text + " " + this.widCir.Text + " " + this.color.Text;
+            // string data = this.row.Text + " " + this.col.Text + " " + this.z.Text + " " + this.x.Text + " " + this.y.Text + " " + this.widCir.Text + " " + this.color.Text;
+            string data = this.x.Text + " " + this.y.Text;
             filewrite.WriteLine(data);
             MessageBox.Show("save successfully");
         }
@@ -269,22 +303,11 @@ namespace WindowsFormsApp1.othercs
 
         }
 
-        // private void InitializeComponent()
-        // {
-        //     this.SuspendLayout();
-        //     //
-        //     // inputdata
-        //     //
-        //     this.ClientSize = new System.Drawing.Size(276, 236);
-        //     this.Name = "inputdata";
-        //     this.Load += new System.EventHandler(this.inputdata_Load);
-        //     this.ResumeLayout(false);
 
-        // }
 
         private void inputdata_Load(object sender, EventArgs e)
         {
-     
+
 
 
         }
@@ -317,7 +340,74 @@ namespace WindowsFormsApp1.othercs
             }
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem != null)
+            {
+
+                CameraDevice cameraDevice = (CameraDevice)comboBox1.SelectedValue;
+                if (cameraDevice != null)
+                {
+                    this.VideoCapture_id = cameraDevice.OpenCvId;
+                }
+                // 释放旧的视频捕获对象
+                if (_capture != null)
+                {
+                    _capture.Dispose();
+                }
+
+                // 创建新的视频捕获对象
+                _capture = new VideoCapture(this.VideoCapture_id, VideoCaptureAPIs.DSHOW);
+            }
+        }
+        public static List<CameraDevice> GetAllConnectedCameras()
+        {
+            var cameras = new List<CameraDevice>();
+            using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE (PNPClass = 'Image' OR PNPClass = 'Camera')"))
+            {
+                int openCvIndex = 0;
+                foreach (ManagementObject device in searcher.Get())
+                {
+                    // Extract camera properties
+                    string name = device["Caption"].ToString();
+                    string status = device["Status"].ToString();
+                    string deviceId = device["DeviceId"].ToString();
+
+                    // Check if the device is a camera and enabled
+                    if (name.ToLower().Contains("camera") && status.Equals("OK", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cameras.Add(new CameraDevice
+                        {
+                            Name = name,
+                            Status = status,
+                            DeviceId = deviceId,
+                            OpenCvId = openCvIndex // Assign OpenCV ID based on the loop index
+                        });
+
+                        openCvIndex++; // Increment the OpenCV device ID for the next iteration
+                    }
+                }
+
+            }
+
+            return cameras;
+        }
+
+        public class CameraDevice
+        {
+            public int OpenCvId { get; set; }
+
+            public string Name { get; set; }
+            public string DeviceId { get; set; }
+            public string Status { get; set; }
+        }
     }
-  }
+}
+
+
 
