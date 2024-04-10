@@ -26,31 +26,29 @@ namespace WindowsFormsApp1.othercs
     public partial class inputdata : Form
     {
         private StreamWriter filewrite;
-        //FileStream output;
         private VideoCapture _capture;
         //Graphics g;
         private Pen pen = new Pen(Color.Red, 1);
         private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
         int circlewidth = 1;
-        int movewidth = 10;
+        int movewidth = 1;//像素级调整
         static bool isDrawingRect = false;
         static System.Drawing.Point rectStartPoint;
-        private static VideoCapture my_VideoCapture;//摄像头设备
         private static bool Vopen_flag; //视频打开关闭状态
         Thread Video_thread; //视频播放线程
         private int VideoCapture_id = 0;//摄像头设备号，默认0，可根据下拉框调整
-        private bool Collimator_flag;//十字准星标识符
-        private bool ROI_flag;//ROI区域标识符
-        private bool FlipX_flag;//左右翻转标识符
-        private bool FlipY_flag;//上下翻转标识符
         List<CameraDevice> cameras;
+        private float widthRatio = 1.0f;
+        private float heightRatio = 1.0f;
+        private float widthx = 0.0f;
+        private float heighty = 0.0f;
         public inputdata()
         {
             InitializeComponent();
-    
-           // string imagePath = @"bg5.jpg";
+
+            // string imagePath = @"bg5.jpg";
             //this.BackgroundImage = Image.FromFile(imagePath);
-           // this.BackgroundImageLayout = ImageLayout.Stretch;
+            // this.BackgroundImageLayout = ImageLayout.Stretch;
             _capture = new VideoCapture(VideoCapture_id, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
             try
             {
@@ -74,12 +72,9 @@ namespace WindowsFormsApp1.othercs
 
             //// 将模板应用于 ComboBox
             //comboBox1.ItemTemplate = template;
-            this.MouseClick += inputdataClick;
-            this.MouseDoubleClick += inputdataMouseDoubleClick;
-            this.MouseMove += pictureBox1_MouseMove;
-            this.MouseDown += pictureBox1_MouseDown;
-            this.KeyDown += inputdata_KeyDown;
+
             //g = this.CreateGraphics();
+
             this.x.Text = "0";
             this.y.Text = "0";
         }
@@ -98,23 +93,39 @@ namespace WindowsFormsApp1.othercs
                 {
                     // 将图像转换为 Bitmap 并显示在 PictureBox 中
                     pictureBox1.Image = frame.ToBitmap();
+                    // 计算缩放倍率
+                    widthRatio = (float)pictureBox1.Width / (float)frame.Width;
+                    heightRatio = (float)pictureBox1.Height / (float)frame.Height;
+                    float scaleRatio = Math.Min(widthRatio, heightRatio);
 
+                    // 缩放图像
+                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                    pictureBox1.Width = (int)(frame.Width * scaleRatio);
+                    pictureBox1.Height = (int)(frame.Height * scaleRatio);
+
+                    // 获取缩放后的宽度和高度
+                    int scaledWidth = pictureBox1.Width;
+                    int scaledHeight = pictureBox1.Height;
+
+                    // 可以在此处对图像进行进一步处理或保存等操作
                     // 可以在此处对图像进行进一步处理或保存等操作
                 }
             }
             System.Drawing.Point mousePosition = pictureBox1.PointToClient(Cursor.Position);
-    
+
             p.X = mousePosition.X;
             p.Y = mousePosition.Y;
 
             p = this.PointToScreen(p);
-            this.x.Text = mousePosition.X.ToString();
-            this.y.Text = mousePosition.Y.ToString();
+            this.widthx = mousePosition.X * widthRatio;
+            this.x.Text = this.widthx.ToString();
+            this.heighty = mousePosition.Y * heightRatio;
+            this.y.Text = this.heighty.ToString();
 
             // 开始绘制矩形
             isDrawingRect = true;
 
-            // 设置矩形起点为鼠标双击位置
+            // 设置矩形起点为鼠标位置
             rectStartPoint = mousePosition;
 
             this.Focus();
@@ -126,6 +137,7 @@ namespace WindowsFormsApp1.othercs
         }
         static void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+
             if (isDrawingRect)
             {
                 // 在鼠标移动时绘制矩形
@@ -140,13 +152,14 @@ namespace WindowsFormsApp1.othercs
 
         static void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (isDrawingRect)
-            {
-                // 结束矩形绘制
-                isDrawingRect = false;
-                var pictureBox = (PictureBox)sender;
-                pictureBox.Invalidate();
-            }
+            //MessageBox.Show("按下！");
+            //if (isDrawingRect)
+            //{
+            //    // 结束矩形绘制
+            //    isDrawingRect = false;
+            //    var pictureBox = (PictureBox)sender;
+            //    pictureBox.Invalidate();
+            //}
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -252,6 +265,25 @@ namespace WindowsFormsApp1.othercs
             }
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.KeyCode == Keys.F11)
+            {
+                // 按下 F11 键时，切换到全屏模式
+                if (WindowState == FormWindowState.Normal)
+                {
+                    WindowState = FormWindowState.Maximized;
+                    FormBorderStyle = FormBorderStyle.None;
+                }
+                else
+                {
+                    WindowState = FormWindowState.Normal;
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                }
+            }
+        }
 
         private void length_Click(object sender, EventArgs e)
         {
@@ -355,6 +387,7 @@ namespace WindowsFormsApp1.othercs
                 {
                     this.VideoCapture_id = cameraDevice.OpenCvId;
                 }
+                MessageBox.Show("VideoCapture_id已更改！" + this.VideoCapture_id);
                 // 释放旧的视频捕获对象
                 if (_capture != null)
                 {
@@ -363,6 +396,8 @@ namespace WindowsFormsApp1.othercs
 
                 // 创建新的视频捕获对象
                 _capture = new VideoCapture(this.VideoCapture_id, VideoCaptureAPIs.DSHOW);
+                //_capture.Set(VideoCaptureProperty.FrameWidth, 640);
+                //_capture.Set(VideoCaptureProperty.FrameHeight, 480);
             }
         }
         public static List<CameraDevice> GetAllConnectedCameras()
@@ -394,7 +429,6 @@ namespace WindowsFormsApp1.othercs
                 }
 
             }
-
             return cameras;
         }
 

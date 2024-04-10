@@ -61,6 +61,7 @@ namespace WindowsFormsApp1.othercs
             // panel1
             // 
             panel1.AllowDrop = true;
+            panel1.BackColor = SystemColors.InfoText;
             panel1.Controls.Add(label3);
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(widMov);
@@ -315,6 +316,7 @@ namespace WindowsFormsApp1.othercs
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = SystemColors.InactiveBorder;
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(2);
@@ -322,7 +324,11 @@ namespace WindowsFormsApp1.othercs
             pictureBox1.Size = new Size(1920, 735);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            pictureBox1.KeyDown += inputdata_KeyDown;
             pictureBox1.Click += inputdataClick;
+            pictureBox1.MouseDoubleClick += inputdataMouseDoubleClick;
+            pictureBox1.MouseUp += pictureBox1_MouseDown;
+            pictureBox1.MouseMove += pictureBox1_MouseMove;
             // 
             // inputdata
             // 
@@ -333,7 +339,6 @@ namespace WindowsFormsApp1.othercs
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Margin = new Padding(4, 5, 4, 5);
             Name = "inputdata";
