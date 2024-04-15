@@ -34,71 +34,88 @@ namespace WindowsFormsApp1
         /// </summary>
 
 
-     
+
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            button1 = new System.Windows.Forms.Button();
+            button2 = new System.Windows.Forms.Button();
+            button3 = new System.Windows.Forms.Button();
+            button4 = new System.Windows.Forms.Button();
+            button5 = new System.Windows.Forms.Button();
+            SuspendLayout();
+            // 
             // button1
-            //
-            this.button1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.button1.Location = new System.Drawing.Point(23, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "找点";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            //
+            // 
+            button1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            button1.Location = new System.Drawing.Point(46, 100);
+            button1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(150, 58);
+            button1.TabIndex = 0;
+            button1.Text = "找点";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // button2
-            //
-            this.button2.Location = new System.Drawing.Point(23, 81);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "画图1";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            //
+            // 
+            button2.Location = new System.Drawing.Point(46, 202);
+            button2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(150, 58);
+            button2.TabIndex = 1;
+            button2.Text = "画图1";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // button3
-            //
-            this.button3.BackColor = System.Drawing.SystemColors.GrayText;
-            this.button3.Location = new System.Drawing.Point(23, 130);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "定位";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            //
+            // 
+            button3.BackColor = System.Drawing.SystemColors.GrayText;
+            button3.Location = new System.Drawing.Point(46, 307);
+            button3.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            button3.Name = "button3";
+            button3.Size = new System.Drawing.Size(150, 58);
+            button3.TabIndex = 2;
+            button3.Text = "定位";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
             // button4
-            //
-            this.button4.Location = new System.Drawing.Point(0, 0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 0;
-            //
-            // MainForm
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "3D reconstruction";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-
+            // 
+            button4.Location = new System.Drawing.Point(0, 0);
+            button4.Name = "button4";
+            button4.Size = new System.Drawing.Size(75, 23);
+            button4.TabIndex = 0;
+            // 
+            // button5
+            // 
+            button5.Location = new System.Drawing.Point(56, 410);
+            button5.Name = "button5";
+            button5.Size = new System.Drawing.Size(131, 40);
+            button5.TabIndex = 3;
+            button5.Text = "videocap";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(568, 652);
+            Controls.Add(button5);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            Name = "Form1";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "3D reconstruction";
+            Load += Form1_Load;
+            ResumeLayout(false);
         }
         #endregion
+
+        private System.Windows.Forms.Button button5;
     }
 }
 
