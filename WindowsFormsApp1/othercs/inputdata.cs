@@ -49,8 +49,8 @@ namespace WindowsFormsApp1.othercs
             InitializeComponent();
 
             _capture = new VideoCapture(VideoCapture_id, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
-            frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
-            frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
+            this.frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
+            this.frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
 
             try
             {
@@ -85,7 +85,7 @@ namespace WindowsFormsApp1.othercs
         private void writecamsetting()
         {
             this.frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
-            frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
+            this.frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
             filewrite.WriteLine($"Camera Resolution: {frameWidth}x{frameHeight}");
         }
 
@@ -114,9 +114,9 @@ namespace WindowsFormsApp1.othercs
             p.Y = mousePosition.Y;
 
             this.widthx = (float)mousePosition.X / (float)scaledWidth;
-            this.x.Text = this.widthx.ToString();
+            this.x.Text = ((int)(this.widthx * this.frameWidth)).ToString();
             this.heighty = (float)mousePosition.Y / (float)scaledHeight;
-            this.y.Text = this.heighty.ToString();
+            this.y.Text = ((int)(this.heighty * this.frameHeight)).ToString();
 
             if (isDrawingL = true)
             {
