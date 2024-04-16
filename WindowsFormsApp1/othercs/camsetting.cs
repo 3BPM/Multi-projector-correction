@@ -38,6 +38,11 @@ namespace WindowsFormsApp1.othercs
             }
             cap.Release();
         }
+
+        private void InitializeComponent()
+        {
+
+        }
     }
 }
 

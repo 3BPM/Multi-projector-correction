@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -69,6 +70,10 @@ namespace WindowsFormsApp1
             camset.Owner = this;
             camset.StartPosition = FormStartPosition.CenterScreen;
             this.Hide();
+            if (!camset.IsDisposed)
+                camset.ShowDialog(this);
+            else
+                Application.Exit();
         }
     }
 }
