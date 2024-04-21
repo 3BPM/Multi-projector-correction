@@ -44,6 +44,11 @@ namespace WindowsFormsApp1.othercs
         List<System.Drawing.Point> points = new List<System.Drawing.Point>(); // 用于存储折线的各个点
         int frameWidth;
         int frameHeight;
+
+        private List<Line> lines = new List<Line>(); // To store drawn lines
+        private System.Drawing.Point startPoint = System.Drawing.Point.Empty; // To track the starting point of a line
+        private bool isDrawingLine = false; // To indicate if a line is being drawn
+
         public inputdata()
         {
             InitializeComponent();
@@ -121,46 +126,12 @@ namespace WindowsFormsApp1.othercs
             this.heighty = (float)mousePosition.Y / (float)scaledHeight;
             this.y.Text = ((int)(this.heighty * this.frameHeight)).ToString();
 
-
-            // 保存上次的直线并标出起止点的坐标
-            // isDrawingL = false;
-            //     var pictureBox = (PictureBox)sender;
-            //     pictureBox.Invalidate();
-            //     graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
-            //     // 画出起止点
-            //     graphics.FillEllipse(Brushes.Red, p.X - 5, p.Y - 5, 10, 10);
-            //     // 标出起止点坐标
-            //     graphics.DrawString($"({p.X}, {p.Y})", new Font("Arial", 8), Brushes.Black, p.X + 10, p.Y - 10);
-            //   // 开始绘制
-            // Get the mouse click location
-
-
-            // Create a list to store the points
-            List<System.Drawing.Point> points = new List<System.Drawing.Point>();
-
-            // Check if the list is already loaded from previous clicks
-            if (pictureBox1.Tag != null)
-            {
-                points = (List<System.Drawing.Point>)pictureBox1.Tag;
-            }
-
             // Add the new mouse click location to the list
             points.Add(mousePosition);
-
-            // Update the list in the PictureBox tag
-            pictureBox1.Tag = points;
-
-            // Redraw the points on the PictureBox
-            pictureBox1.Invalidate();
-
-
             isDrawingL = true;
             // 设置直线起点为鼠标位置
             LineStartPoint = mousePosition;
-            // 画出起止点
-            graphics.FillEllipse(Brushes.Red, LineStartPoint.X - 5, LineStartPoint.Y - 5, 10, 10);
-            // 标出起止点坐标
-            graphics.DrawString($"({LineStartPoint.X}, {LineStartPoint.Y})", new Font("Arial", 8), Brushes.Black, LineStartPoint.X + 10, LineStartPoint.Y - 10);
+            pictureBox1.Invalidate();
 
             this.Focus();
         }
@@ -169,17 +140,18 @@ namespace WindowsFormsApp1.othercs
 
             if (isDrawingL)
             {
-                // 在鼠标移动时绘制直线
-                var pictureBox = (PictureBox)sender;
-                pictureBox.Invalidate();
-                var graphics = pictureBox.CreateGraphics();
-                var endPoint = e.Location;
-                // 仅绘制一条直线而不是多条线条
-                if (LineStartPoint != System.Drawing.Point.Empty)
-                {
-                    graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
-                }
 
+                // Create a new line object with startPoint and current mouse location
+                Line line = new Line(startPoint, e.Location);
+
+                // Update the lines list with the new line
+                lines.Add(line);
+
+                // Update the startPoint for the next line segment
+                startPoint = e.Location;
+
+                // Redraw the points and lines on the PictureBox
+                pictureBox1.Invalidate();
             }
 
 
@@ -458,6 +430,24 @@ namespace WindowsFormsApp1.othercs
                 //_capture.Set(VideoCaptureProperty.FrameHeight, 480);
             }
         }
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            // Create a Graphics object using the PictureBox's graphics
+            using (Graphics g = pictureBox1.CreateGraphics())
+            {
+                // Draw each point in the points list as a black circle
+                foreach (System.Drawing.Point point in points)
+                {
+                    g.DrawEllipse(Pens.Black, point.X, point.Y, 5, 5);
+                }
+
+                // Draw each line in the lines list
+                foreach (Line line in lines)
+                {
+                    g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
+                }
+            }
+        }
         public static List<CameraDevice> GetAllConnectedCameras()
         {
             var cameras = new List<CameraDevice>();
@@ -497,6 +487,19 @@ namespace WindowsFormsApp1.othercs
             public string Name { get; set; }
             public string DeviceId { get; set; }
             public string Status { get; set; }
+        }
+        public class Line
+        {
+            public System.Drawing.Point StartPoint { get; set; }
+            public System.Drawing.Point EndPoint { get; set; }
+            public Pen Pen { get; set; }
+
+            public Line(System.Drawing.Point startPoint, System.Drawing.Point endPoint)
+            {
+                StartPoint = startPoint;
+                EndPoint = endPoint;
+                Pen = new Pen(Color.Red); // Set default pen color to black
+            }
         }
     }
 }
