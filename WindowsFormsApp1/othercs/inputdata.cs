@@ -93,6 +93,9 @@ namespace WindowsFormsApp1.othercs
         {
             int scaledWidth = pictureBox1.Width;
             int scaledHeight = pictureBox1.Height;
+
+            var graphics = pictureBox1.CreateGraphics();
+
             // 在点击 PictureBox 时进行拍摄
             if (_capture != null && _capture.IsOpened())
             {
@@ -118,23 +121,46 @@ namespace WindowsFormsApp1.othercs
             this.heighty = (float)mousePosition.Y / (float)scaledHeight;
             this.y.Text = ((int)(this.heighty * this.frameHeight)).ToString();
 
-            if (isDrawingL = true)
-            {
-                // 保存上次的直线并标出起止点的坐标
-                isDrawingL = false;
-                //     var pictureBox = (PictureBox)sender;
-                //     pictureBox.Invalidate();
-                //     graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
-                //     // 画出起止点
-                //     graphics.FillEllipse(Brushes.Red, p.X - 5, p.Y - 5, 10, 10);
-                //     // 标出起止点坐标
-                //     graphics.DrawString($"({p.X}, {p.Y})", new Font("Arial", 8), Brushes.Black, p.X + 10, p.Y - 10);
-                //   // 开始绘制
 
+            // 保存上次的直线并标出起止点的坐标
+            // isDrawingL = false;
+            //     var pictureBox = (PictureBox)sender;
+            //     pictureBox.Invalidate();
+            //     graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
+            //     // 画出起止点
+            //     graphics.FillEllipse(Brushes.Red, p.X - 5, p.Y - 5, 10, 10);
+            //     // 标出起止点坐标
+            //     graphics.DrawString($"({p.X}, {p.Y})", new Font("Arial", 8), Brushes.Black, p.X + 10, p.Y - 10);
+            //   // 开始绘制
+            // Get the mouse click location
+
+
+            // Create a list to store the points
+            List<System.Drawing.Point> points = new List<System.Drawing.Point>();
+
+            // Check if the list is already loaded from previous clicks
+            if (pictureBox1.Tag != null)
+            {
+                points = (List<System.Drawing.Point>)pictureBox1.Tag;
             }
+
+            // Add the new mouse click location to the list
+            points.Add(mousePosition);
+
+            // Update the list in the PictureBox tag
+            pictureBox1.Tag = points;
+
+            // Redraw the points on the PictureBox
+            pictureBox1.Invalidate();
+
+
             isDrawingL = true;
             // 设置直线起点为鼠标位置
             LineStartPoint = mousePosition;
+            // 画出起止点
+            graphics.FillEllipse(Brushes.Red, LineStartPoint.X - 5, LineStartPoint.Y - 5, 10, 10);
+            // 标出起止点坐标
+            graphics.DrawString($"({LineStartPoint.X}, {LineStartPoint.Y})", new Font("Arial", 8), Brushes.Black, LineStartPoint.X + 10, LineStartPoint.Y - 10);
 
             this.Focus();
         }
@@ -143,18 +169,20 @@ namespace WindowsFormsApp1.othercs
 
             if (isDrawingL)
             {
-                // 在鼠标移动时绘制线条
+                // 在鼠标移动时绘制直线
                 var pictureBox = (PictureBox)sender;
+                pictureBox.Invalidate();
                 var graphics = pictureBox.CreateGraphics();
-
-                // Only draw one line instead of multiple lines
+                var endPoint = e.Location;
+                // 仅绘制一条直线而不是多条线条
                 if (LineStartPoint != System.Drawing.Point.Empty)
                 {
-                    graphics.DrawLine(Pens.Red, LineStartPoint, e.Location);
+                    graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
                 }
-                LineStartPoint = e.Location;
 
             }
+
+
         }
 
         private void inputdataMouseDoubleClick(object sender, MouseEventArgs e)
