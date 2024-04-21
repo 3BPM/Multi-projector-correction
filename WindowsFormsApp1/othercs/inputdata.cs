@@ -145,9 +145,15 @@ namespace WindowsFormsApp1.othercs
             {
                 // 在鼠标移动时绘制线条
                 var pictureBox = (PictureBox)sender;
-                var endPoint = e.Location;
                 var graphics = pictureBox.CreateGraphics();
-                graphics.DrawLine(Pens.Red, LineStartPoint, endPoint);
+
+                // Only draw one line instead of multiple lines
+                if (LineStartPoint != System.Drawing.Point.Empty)
+                {
+                    graphics.DrawLine(Pens.Red, LineStartPoint, e.Location);
+                }
+                LineStartPoint = e.Location;
+
             }
         }
 
