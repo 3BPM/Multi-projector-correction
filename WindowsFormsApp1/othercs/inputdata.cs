@@ -46,7 +46,7 @@ namespace WindowsFormsApp1.othercs
         int frameHeight;
 
         private List<Line> lines = new List<Line>(); // To store drawn lines
-        private System.Drawing.Point startPoint = System.Drawing.Point.Empty; // To track the starting point of a line
+
         private bool isDrawingLine = false; // To indicate if a line is being drawn
 
         public inputdata()
@@ -142,13 +142,20 @@ namespace WindowsFormsApp1.othercs
             {
 
                 // Create a new line object with startPoint and current mouse location
-                Line line = new Line(startPoint, e.Location);
+                Line line = new Line(LineStartPoint, e.Location);
 
-                // Update the lines list with the new line
-                lines.Add(line);
+                // Check that points.Count is a valid index for the lines array
+                if (points.Count >= 0 && points.Count < lines.Count)
+                {
+                    // Update the lines array at the points.Count index with the new line
+                    lines[points.Count] = line;
+                }
+                else
+                {
+                    lines.Add(line);
+                }
 
-                // Update the startPoint for the next line segment
-                startPoint = e.Location;
+
 
                 // Redraw the points and lines on the PictureBox
                 pictureBox1.Invalidate();
@@ -362,6 +369,9 @@ namespace WindowsFormsApp1.othercs
 
         private void widMov_Click(object sender, EventArgs e)
         {
+            lines.Clear();
+            points.Clear();
+            isDrawingL = false;
 
         }
 

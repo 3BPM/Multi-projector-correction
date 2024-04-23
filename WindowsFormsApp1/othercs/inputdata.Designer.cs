@@ -57,9 +57,9 @@ namespace WindowsFormsApp1.othercs
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
-            //
+            // 
             // panel1
-            //
+            // 
             panel1.AllowDrop = true;
             panel1.BackColor = SystemColors.InfoText;
             panel1.Controls.Add(label3);
@@ -89,9 +89,9 @@ namespace WindowsFormsApp1.othercs
             panel1.Size = new Size(400, 446);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
-            //
+            // 
             // label3
-            //
+            // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(20, 306);
@@ -101,19 +101,19 @@ namespace WindowsFormsApp1.othercs
             label3.TabIndex = 23;
             label3.Text = "camselect";
             label3.Click += label3_Click;
-            //
+            // 
             // comboBox1
-            //
+            // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(159, 302);
-            comboBox1.Margin = new Padding(4, 4, 4, 4);
+            comboBox1.Margin = new Padding(4);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(200, 38);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            //
+            // 
             // widMov
-            //
+            // 
             widMov.Location = new Point(284, 225);
             widMov.Margin = new Padding(5, 8, 5, 8);
             widMov.Name = "widMov";
@@ -121,21 +121,21 @@ namespace WindowsFormsApp1.othercs
             widMov.TabIndex = 22;
             widMov.Text = "1";
             widMov.TextChanged += textBox1_TextChanged_1;
-            //
+            // 
             // widMovLabel
-            //
+            // 
             widMovLabel.AutoSize = true;
             widMovLabel.ForeColor = SystemColors.Control;
             widMovLabel.Location = new Point(197, 232);
             widMovLabel.Margin = new Padding(5, 0, 5, 0);
             widMovLabel.Name = "widMovLabel";
-            widMovLabel.Size = new Size(86, 30);
+            widMovLabel.Size = new Size(57, 30);
             widMovLabel.TabIndex = 21;
-            widMovLabel.Text = "widMov";
+            widMovLabel.Text = "清空";
             widMovLabel.Click += widMov_Click;
-            //
+            // 
             // color
-            //
+            // 
             color.Location = new Point(88, 225);
             color.Margin = new Padding(5, 8, 5, 8);
             color.Name = "color";
@@ -143,9 +143,9 @@ namespace WindowsFormsApp1.othercs
             color.TabIndex = 20;
             color.Text = "0";
             color.TextChanged += color_TextChanged;
-            //
+            // 
             // label2
-            //
+            // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
             label2.Location = new Point(12, 232);
@@ -154,9 +154,9 @@ namespace WindowsFormsApp1.othercs
             label2.Size = new Size(59, 30);
             label2.TabIndex = 19;
             label2.Text = "color";
-            //
+            // 
             // z
-            //
+            // 
             z.Location = new Point(44, 158);
             z.Margin = new Padding(5, 8, 5, 8);
             z.Name = "z";
@@ -164,9 +164,9 @@ namespace WindowsFormsApp1.othercs
             z.TabIndex = 18;
             z.Text = "1";
             z.TextChanged += textBox6_TextChanged;
-            //
+            // 
             // zlabel
-            //
+            // 
             zlabel.AutoSize = true;
             zlabel.ForeColor = SystemColors.Control;
             zlabel.Location = new Point(11, 165);
@@ -175,9 +175,9 @@ namespace WindowsFormsApp1.othercs
             zlabel.Size = new Size(23, 30);
             zlabel.TabIndex = 17;
             zlabel.Text = "z";
-            //
+            // 
             // exit
-            //
+            // 
             exit.Location = new Point(13, 370);
             exit.Margin = new Padding(5, 8, 5, 8);
             exit.Name = "exit";
@@ -186,9 +186,9 @@ namespace WindowsFormsApp1.othercs
             exit.Text = "exit";
             exit.UseVisualStyleBackColor = true;
             exit.Click += exit_Click;
-            //
+            // 
             // col
-            //
+            // 
             col.Location = new Point(267, 90);
             col.Margin = new Padding(5, 8, 5, 8);
             col.Name = "col";
@@ -196,9 +196,9 @@ namespace WindowsFormsApp1.othercs
             col.TabIndex = 15;
             col.Text = "0";
             col.TextChanged += col_TextChanged;
-            //
+            // 
             // label1
-            //
+            // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Control;
             label1.Location = new Point(185, 94);
@@ -207,9 +207,9 @@ namespace WindowsFormsApp1.othercs
             label1.Size = new Size(75, 30);
             label1.TabIndex = 14;
             label1.Text = "colsize";
-            //
+            // 
             // widCir
-            //
+            // 
             widCir.Location = new Point(284, 158);
             widCir.Margin = new Padding(5, 8, 5, 8);
             widCir.Name = "widCir";
@@ -217,9 +217,9 @@ namespace WindowsFormsApp1.othercs
             widCir.TabIndex = 13;
             widCir.Text = "1";
             widCir.TextChanged += textBox4_TextChanged;
-            //
+            // 
             // widCirLable
-            //
+            // 
             widCirLable.AutoSize = true;
             widCirLable.ForeColor = SystemColors.Control;
             widCirLable.Location = new Point(197, 165);
@@ -228,9 +228,9 @@ namespace WindowsFormsApp1.othercs
             widCirLable.Size = new Size(70, 30);
             widCirLable.TabIndex = 12;
             widCirLable.Text = "widCir";
-            //
+            // 
             // cancel
-            //
+            // 
             cancel.Location = new Point(267, 370);
             cancel.Margin = new Padding(5, 8, 5, 8);
             cancel.Name = "cancel";
@@ -239,9 +239,9 @@ namespace WindowsFormsApp1.othercs
             cancel.Text = "cancel";
             cancel.UseVisualStyleBackColor = true;
             cancel.Click += button6_Click;
-            //
+            // 
             // save
-            //
+            // 
             save.Location = new Point(156, 370);
             save.Margin = new Padding(5, 8, 5, 8);
             save.Name = "save";
@@ -250,9 +250,9 @@ namespace WindowsFormsApp1.othercs
             save.Text = "save";
             save.UseVisualStyleBackColor = true;
             save.Click += button5_Click;
-            //
+            // 
             // row
-            //
+            // 
             row.Location = new Point(267, 15);
             row.Margin = new Padding(5, 8, 5, 8);
             row.Name = "row";
@@ -260,9 +260,9 @@ namespace WindowsFormsApp1.othercs
             row.TabIndex = 7;
             row.Text = "0";
             row.TextChanged += row_TextChanged;
-            //
+            // 
             // length
-            //
+            // 
             length.AutoSize = true;
             length.ForeColor = SystemColors.Control;
             length.Location = new Point(185, 22);
@@ -272,9 +272,9 @@ namespace WindowsFormsApp1.othercs
             length.TabIndex = 6;
             length.Text = "rowsize";
             length.Click += length_Click;
-            //
+            // 
             // y
-            //
+            // 
             y.Location = new Point(44, 82);
             y.Margin = new Padding(5, 8, 5, 8);
             y.Name = "y";
@@ -282,9 +282,9 @@ namespace WindowsFormsApp1.othercs
             y.TabIndex = 5;
             y.Text = "0";
             y.TextChanged += textBox1_TextChanged;
-            //
+            // 
             // ylable
-            //
+            // 
             ylable.AutoSize = true;
             ylable.ForeColor = SystemColors.Control;
             ylable.Location = new Point(8, 90);
@@ -293,9 +293,9 @@ namespace WindowsFormsApp1.othercs
             ylable.Size = new Size(23, 30);
             ylable.TabIndex = 4;
             ylable.Text = "y";
-            //
+            // 
             // x
-            //
+            // 
             x.Location = new Point(44, 15);
             x.Margin = new Padding(5, 8, 5, 8);
             x.Name = "x";
@@ -303,9 +303,9 @@ namespace WindowsFormsApp1.othercs
             x.TabIndex = 3;
             x.Text = "0";
             x.TextChanged += textBox1_TextChanged;
-            //
+            // 
             // xlabel
-            //
+            // 
             xlabel.AutoSize = true;
             xlabel.ForeColor = SystemColors.Control;
             xlabel.Location = new Point(11, 22);
@@ -314,9 +314,9 @@ namespace WindowsFormsApp1.othercs
             xlabel.Size = new Size(23, 30);
             xlabel.TabIndex = 2;
             xlabel.Text = "x";
-            //
+            // 
             // pictureBox1
-            //
+            // 
             pictureBox1.BackColor = SystemColors.InactiveBorder;
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
@@ -327,13 +327,12 @@ namespace WindowsFormsApp1.othercs
             pictureBox1.TabStop = false;
             pictureBox1.KeyDown += inputdata_KeyDown;
             pictureBox1.Click += inputdataClick;
-            pictureBox1.MouseDoubleClick += inputdataMouseDoubleClick;
-            pictureBox1.MouseMove += this.pictureBox1_MouseMove;
             pictureBox1.Paint += pictureBox1_Paint;
-
-            //
+            pictureBox1.MouseDoubleClick += inputdataMouseDoubleClick;
+            pictureBox1.MouseMove += pictureBox1_MouseMove;
+            // 
             // inputdata
-            //
+            // 
             AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuText;
