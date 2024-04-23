@@ -54,6 +54,7 @@ namespace WindowsFormsApp1.othercs
             x = new TextBox();
             xlabel = new Label();
             pictureBox1 = new PictureBox();
+            label4 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -129,7 +130,7 @@ namespace WindowsFormsApp1.othercs
             widMovLabel.Location = new Point(197, 232);
             widMovLabel.Margin = new Padding(5, 0, 5, 0);
             widMovLabel.Name = "widMovLabel";
-            widMovLabel.Size = new Size(57, 30);
+            widMovLabel.Size = new Size(55, 30);
             widMovLabel.TabIndex = 21;
             widMovLabel.Text = "清空";
             widMovLabel.Click += widMov_Click;
@@ -157,10 +158,10 @@ namespace WindowsFormsApp1.othercs
             // 
             // z
             // 
-            z.Location = new Point(44, 158);
+            z.Location = new Point(121, 158);
             z.Margin = new Padding(5, 8, 5, 8);
             z.Name = "z";
-            z.Size = new Size(135, 35);
+            z.Size = new Size(58, 35);
             z.TabIndex = 18;
             z.Text = "1";
             z.TextChanged += textBox6_TextChanged;
@@ -169,12 +170,13 @@ namespace WindowsFormsApp1.othercs
             // 
             zlabel.AutoSize = true;
             zlabel.ForeColor = SystemColors.Control;
-            zlabel.Location = new Point(11, 165);
+            zlabel.Location = new Point(20, 158);
             zlabel.Margin = new Padding(5, 0, 5, 0);
             zlabel.Name = "zlabel";
-            zlabel.Size = new Size(23, 30);
+            zlabel.Size = new Size(88, 30);
             zlabel.TabIndex = 17;
-            zlabel.Text = "z";
+            zlabel.Text = "读入4点";
+            zlabel.Click += zlabel_Click;
             // 
             // exit
             // 
@@ -222,12 +224,13 @@ namespace WindowsFormsApp1.othercs
             // 
             widCirLable.AutoSize = true;
             widCirLable.ForeColor = SystemColors.Control;
-            widCirLable.Location = new Point(197, 165);
+            widCirLable.Location = new Point(185, 161);
             widCirLable.Margin = new Padding(5, 0, 5, 0);
             widCirLable.Name = "widCirLable";
-            widCirLable.Size = new Size(70, 30);
+            widCirLable.Size = new Size(77, 30);
             widCirLable.TabIndex = 12;
-            widCirLable.Text = "widCir";
+            widCirLable.Text = "生成锚";
+            widCirLable.Click += widCirLable_Click;
             // 
             // cancel
             // 
@@ -331,12 +334,23 @@ namespace WindowsFormsApp1.othercs
             pictureBox1.MouseDoubleClick += inputdataMouseDoubleClick;
             pictureBox1.MouseMove += pictureBox1_MouseMove;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = SystemColors.Info;
+            label4.Location = new Point(25, 1046);
+            label4.Name = "label4";
+            label4.Size = new Size(207, 30);
+            label4.TabIndex = 24;
+            label4.Text = "注意请以顺时针标点";
+            // 
             // inputdata
             // 
             AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuText;
             ClientSize = new Size(2560, 1102);
+            Controls.Add(label4);
             Controls.Add(panel1);
             Controls.Add(pictureBox1);
             DoubleBuffered = true;
@@ -349,6 +363,7 @@ namespace WindowsFormsApp1.othercs
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -376,5 +391,6 @@ namespace WindowsFormsApp1.othercs
         private PictureBox pictureBox1;
         private Label label3;
         private ComboBox comboBox1;
+        private Label label4;
     }
 }

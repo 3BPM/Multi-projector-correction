@@ -20,6 +20,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Management;
+using System.Security.Cryptography;
 
 namespace WindowsFormsApp1.othercs
 {
@@ -27,6 +28,7 @@ namespace WindowsFormsApp1.othercs
     {
         private StreamWriter filewrite;
         private VideoCapture _capture;
+             
         //Graphics g;
         private Pen pen = new Pen(Color.Red, 1);//宽度1像素
         private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
@@ -42,8 +44,9 @@ namespace WindowsFormsApp1.othercs
         private float widthx = 0.0f;//ratio
         private float heighty = 0.0f;
         List<System.Drawing.Point> points = new List<System.Drawing.Point>(); // 用于存储折线的各个点
-        int frameWidth;
-        int frameHeight;
+        List<OpenCvSharp.Point2f> fourcorners = new List<OpenCvSharp.Point2f>();
+        int frameWidth = 1280;
+        int frameHeight = 720;
 
         private List<Line> lines = new List<Line>(); // To store drawn lines
 
@@ -53,15 +56,15 @@ namespace WindowsFormsApp1.othercs
         {
             InitializeComponent();
 
-            _capture = new VideoCapture(VideoCapture_id, VideoCaptureAPIs.DSHOW); // 使用默认摄像头设备
-            this.frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
-            this.frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
+            _capture = new VideoCapture(this.VideoCapture_id, VideoCaptureAPIs.DSHOW);
+            _capture.Set(VideoCaptureProperties.FrameWidth, this.frameWidth);
+            _capture.Set(VideoCaptureProperties.FrameHeight, this.frameHeight);
 
             try
             {
                 //output = new FileStream(path, FileMode.Append, FileAccess.Write);
                 filewrite = File.AppendText("data.txt");
-                filewrite.WriteLine($"Camera Resolution: {frameWidth}x{frameHeight}");
+
 
                 //MessageBox.Show("Open/Create success!");
             }
@@ -245,6 +248,9 @@ namespace WindowsFormsApp1.othercs
         private void button5_Click(object sender, EventArgs e)//save
         {
             // string data = this.row.Text + " " + this.col.Text + " " + this.z.Text + " " + this.x.Text + " " + this.y.Text + " " + this.widCir.Text + " " + this.color.Text;
+            int xValue = Convert.ToInt32(this.x.Text);
+            int yValue = Convert.ToInt32(this.y.Text);
+            fourcorners.Add(new OpenCvSharp.Point2f(xValue, yValue));
             string data = this.x.Text + " " + this.y.Text;
             filewrite.WriteLine(data);
             MessageBox.Show("save successfully");
@@ -371,6 +377,7 @@ namespace WindowsFormsApp1.othercs
         {
             lines.Clear();
             points.Clear();
+            fourcorners.Clear();
             isDrawingL = false;
 
         }
@@ -436,8 +443,11 @@ namespace WindowsFormsApp1.othercs
 
                 // 创建新的视频捕获对象
                 _capture = new VideoCapture(this.VideoCapture_id, VideoCaptureAPIs.DSHOW);
-                //_capture.Set(VideoCaptureProperty.FrameWidth, 640);
-                //_capture.Set(VideoCaptureProperty.FrameHeight, 480);
+                       _capture.Set(VideoCaptureProperties.FrameWidth, this.frameWidth);
+                _capture.Set(VideoCaptureProperties.FrameHeight, this.frameHeight);
+                this.frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
+                this.frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
+
             }
         }
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -510,6 +520,79 @@ namespace WindowsFormsApp1.othercs
                 EndPoint = endPoint;
                 Pen = new Pen(Color.Red); // Set default pen color to black
             }
+        }
+
+        private void widCirLable_Click(object sender, EventArgs e)
+        {
+            Mat frame = new Mat();
+            _capture.Read(frame); // 读取视频帧
+            string arucodir = @"C:\Users\robert\source\repos\3BPM\test3\pyCalibration\data\aruco15.png";
+            Mat generated_aruco_img = Cv2.ImRead(arucodir);
+
+            if (generated_aruco_img == null)
+            {
+                throw new Exception("file could not be read, check with os.path.exists()");
+            }
+
+            int height = generated_aruco_img.Height;
+            int width = generated_aruco_img.Width;
+            int ch = generated_aruco_img.Channels();
+
+
+            OpenCvSharp.Point2f[] pts1 = new OpenCvSharp.Point2f[] { new OpenCvSharp.Point2f(0, 0), new OpenCvSharp.Point2f(width, 0), new OpenCvSharp.Point2f(width, height), new OpenCvSharp.Point2f(0, height) };
+
+            OpenCvSharp.Point2f[] pts2 = fourcorners.ToArray();
+
+
+            Mat M = Cv2.GetPerspectiveTransform(pts1, pts2);
+            Mat dst = new Mat();
+            Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(1280, 720));
+            Mat frameWithAruco = new Mat();
+            Cv2.AddWeighted(frame, 0.7, dst, 0.3, 0, frameWithAruco);
+
+            //Cv2.WarpPerspective(img, dst, M, new Size(300, 200));
+            Cv2.ImWrite("./pic2.png", dst);
+            if (!frameWithAruco.Empty())
+                {
+
+                // 缩放图像
+                Mat resizedFrame = new Mat();
+                    Cv2.Resize(frameWithAruco, resizedFrame, new OpenCvSharp.Size(pictureBox1.Width, pictureBox1.Height));
+                    // 将图像转换为 Bitmap 并显示在 PictureBox 中
+                    pictureBox1.Image = resizedFrame.ToBitmap();
+                }
+        }
+
+        private void zlabel_Click(object sender, EventArgs e)
+        {
+
+            filewrite.Close();
+            fourcorners.Clear();
+            string[] linesToRead = File.ReadAllLines("data.txt");
+            for (int i = 0; i < 4 && i < linesToRead.Length; i++)
+            {
+                string line = linesToRead[linesToRead.Length - 4 + i];
+                string[] parts = line.Split(' ');
+                if (parts.Length >= 2)
+                {
+                    float x = float.Parse(parts[0]);
+                    float y = float.Parse(parts[1]);
+                    fourcorners.Add(new OpenCvSharp.Point2f(x, y));
+                }
+            }
+            foreach (var point in fourcorners)
+            {
+                points.Clear();
+                points.Add(new System.Drawing.Point((int)point.X * pictureBox1.Width / this.frameWidth, (int)point.Y * pictureBox1.Height / this.frameHeight));
+            }
+        pictureBox1.Refresh();
+
+
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
         }
     }
 }
