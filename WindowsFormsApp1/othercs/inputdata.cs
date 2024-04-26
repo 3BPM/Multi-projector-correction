@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Management;
 using System.Security.Cryptography;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WindowsFormsApp1.othercs
 {
@@ -28,7 +29,7 @@ namespace WindowsFormsApp1.othercs
     {
         private StreamWriter filewrite;
         private VideoCapture _capture;
-             
+
         //Graphics g;
         private Pen pen = new Pen(Color.Red, 1);//宽度1像素
         private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
@@ -45,8 +46,8 @@ namespace WindowsFormsApp1.othercs
         private float heighty = 0.0f;
         List<System.Drawing.Point> points = new List<System.Drawing.Point>(); // 用于存储折线的各个点
         List<OpenCvSharp.Point2f> fourcorners = new List<OpenCvSharp.Point2f>();
-        int frameWidth = 1280;
-        int frameHeight = 720;
+        int frameWidth = 1920;
+        int frameHeight = 1080;
 
         private List<Line> lines = new List<Line>(); // To store drawn lines
 
@@ -413,7 +414,7 @@ namespace WindowsFormsApp1.othercs
             if (_capture != null && _capture.IsOpened())
             {
                 // 停止捕获视频帧并释放资源
-                Application.Idle -= CaptureFrame;
+                System.Windows.Forms.Application.Idle -= CaptureFrame;
                 _capture.Release();
                 _capture.Dispose();
             }
@@ -443,7 +444,7 @@ namespace WindowsFormsApp1.othercs
 
                 // 创建新的视频捕获对象
                 _capture = new VideoCapture(this.VideoCapture_id, VideoCaptureAPIs.DSHOW);
-                       _capture.Set(VideoCaptureProperties.FrameWidth, this.frameWidth);
+                _capture.Set(VideoCaptureProperties.FrameWidth, this.frameWidth);
                 _capture.Set(VideoCaptureProperties.FrameHeight, this.frameHeight);
                 this.frameWidth = (int)_capture.Get(VideoCaptureProperties.FrameWidth);
                 this.frameHeight = (int)_capture.Get(VideoCaptureProperties.FrameHeight);
@@ -464,7 +465,18 @@ namespace WindowsFormsApp1.othercs
                 // Draw each line in the lines list
                 foreach (Line line in lines)
                 {
-                    g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
+                    // g.DrawLine(line.Pen, line.StartPoint, line.EndPoint);
+                    int x = Math.Min(line.StartPoint.X, line.EndPoint.X);
+                    int y = Math.Min(line.StartPoint.Y, line.EndPoint.Y);
+                    int width = Math.Abs(line.StartPoint.X - line.EndPoint.X);
+                    int height = Math.Abs(line.StartPoint.Y - line.EndPoint.Y);
+
+                    Rectangle rectangle = new Rectangle(x, y, width, height);
+
+                    // 使用 Graphics 对象绘制矩形
+
+                    g.DrawRectangle(Pens.Red, rectangle);
+
                 }
             }
         }
@@ -526,9 +538,13 @@ namespace WindowsFormsApp1.othercs
         {
             Mat frame = new Mat();
             _capture.Read(frame); // 读取视频帧
+            string currentFolderPath = Path.GetDirectoryName(Environment.CurrentDirectory);
+
+            //Mat generated_aruco_img = Cv2.ImRead(@"C:\Users\robert\Documents\aruco15.png");
             string arucodir = @"C:\Users\robert\source\repos\3BPM\test3\pyCalibration\data\aruco15.png";
             Mat generated_aruco_img = Cv2.ImRead(arucodir);
-
+            //System.Drawing.Image myImage = Properties.Resources.aruco15;
+            //Mat generated_aruco_img = myImage.ToMat();
             if (generated_aruco_img == null)
             {
                 throw new Exception("file could not be read, check with os.path.exists()");
@@ -540,27 +556,43 @@ namespace WindowsFormsApp1.othercs
 
 
             OpenCvSharp.Point2f[] pts1 = new OpenCvSharp.Point2f[] { new OpenCvSharp.Point2f(0, 0), new OpenCvSharp.Point2f(width, 0), new OpenCvSharp.Point2f(width, height), new OpenCvSharp.Point2f(0, height) };
+            // 读取左上角和右下角两个点
+            OpenCvSharp.Point2f topLeft = fourcorners[0];
+            OpenCvSharp.Point2f bottomRight = fourcorners[1];
+
+            // 生成矩形的四个顶点
+            OpenCvSharp.Point2f topRight = new OpenCvSharp.Point2f(bottomRight.X, topLeft.Y);
+            OpenCvSharp.Point2f bottomLeft = new OpenCvSharp.Point2f(topLeft.X, bottomRight.Y);
+
+            // 清空四个角点列表
+            fourcorners.Clear();
+
+            // 添加生成的四个矩形顶点
+            fourcorners.Add(topLeft);
+            fourcorners.Add(topRight);
+            fourcorners.Add(bottomRight);
+            fourcorners.Add(bottomLeft);
 
             OpenCvSharp.Point2f[] pts2 = fourcorners.ToArray();
 
 
             Mat M = Cv2.GetPerspectiveTransform(pts1, pts2);
             Mat dst = new Mat();
-            Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(1280, 720));
+            Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(1920, 1080));
             Mat frameWithAruco = new Mat();
             Cv2.AddWeighted(frame, 0.7, dst, 0.3, 0, frameWithAruco);
 
             //Cv2.WarpPerspective(img, dst, M, new Size(300, 200));
             Cv2.ImWrite("./pic2.png", dst);
             if (!frameWithAruco.Empty())
-                {
+            {
 
                 // 缩放图像
                 Mat resizedFrame = new Mat();
-                    Cv2.Resize(frameWithAruco, resizedFrame, new OpenCvSharp.Size(pictureBox1.Width, pictureBox1.Height));
-                    // 将图像转换为 Bitmap 并显示在 PictureBox 中
-                    pictureBox1.Image = resizedFrame.ToBitmap();
-                }
+                Cv2.Resize(frameWithAruco, resizedFrame, new OpenCvSharp.Size(pictureBox1.Width, pictureBox1.Height));
+                // 将图像转换为 Bitmap 并显示在 PictureBox 中
+                pictureBox1.Image = resizedFrame.ToBitmap();
+            }
         }
 
         private void zlabel_Click(object sender, EventArgs e)
@@ -585,7 +617,7 @@ namespace WindowsFormsApp1.othercs
                 points.Clear();
                 points.Add(new System.Drawing.Point((int)point.X * pictureBox1.Width / this.frameWidth, (int)point.Y * pictureBox1.Height / this.frameHeight));
             }
-        pictureBox1.Refresh();
+            pictureBox1.Refresh();
 
 
         }
