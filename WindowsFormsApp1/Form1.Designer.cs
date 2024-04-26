@@ -63,7 +63,7 @@ namespace WindowsFormsApp1
             button2.Name = "button2";
             button2.Size = new System.Drawing.Size(150, 58);
             button2.TabIndex = 1;
-            button2.Text = "画图1";
+            button2.Text = "gray码拍摄";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             button3.Name = "button3";
             button3.Size = new System.Drawing.Size(150, 58);
             button3.TabIndex = 2;
-            button3.Text = "定位";
+            button3.Text = "目标图像生成";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 

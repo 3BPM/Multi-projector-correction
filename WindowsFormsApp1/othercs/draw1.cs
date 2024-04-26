@@ -19,6 +19,7 @@ namespace WindowsFormsApp1.othercs
         private Pen pen1;
         private Graphics g;
         private System.Windows.Forms.Button exit;
+        private ListBox screensListBox;
         List<string> lines = new List<string>(File.ReadAllLines("data.txt"));
 
         protected override void Dispose(bool disposing)
@@ -39,38 +40,60 @@ namespace WindowsFormsApp1.othercs
             // pen.DashStyle = DashStyle.Custom;
             //pen.DashPattern = new float[] { 4f, 40f };
             g = this.CreateGraphics();
+            this.screensListBox = new ListBox();
+            this.screensListBox.Dock = DockStyle.Fill;
+            this.Controls.Add(this.screensListBox);
+
+            foreach (var screen in Screen.AllScreens)
+            {
+                string screenInfo = $"Projector {screen.DeviceName} [{screen.Bounds.Width}x{screen.Bounds.Height}]";
+                this.screensListBox.Items.Add(screenInfo);
+            }
         }
 
         private void InitializeComponent()
         {
-            this.exit = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+            exit = new Button();
+            screensListBox = new ListBox();
+            SuspendLayout();
+            // 
             // exit
-            //
-            this.exit.Location = new System.Drawing.Point(12, 12);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(75, 23);
-            this.exit.TabIndex = 0;
-            this.exit.Text = "exit";
-            this.exit.UseVisualStyleBackColor = true;
-            this.exit.Click += new System.EventHandler(this.button1_Click);
-            //
+            // 
+            exit.Location = new Point(44, 185);
+            exit.Margin = new Padding(6, 8, 6, 8);
+            exit.Name = "exit";
+            exit.Size = new Size(150, 58);
+            exit.TabIndex = 0;
+            exit.Text = "exit";
+            exit.UseVisualStyleBackColor = true;
+            exit.Click += button1_Click;
+            // 
+            // screensListBox
+            // 
+            screensListBox.FormattingEnabled = true;
+            screensListBox.ItemHeight = 30;
+            screensListBox.Location = new Point(44, 30);
+            screensListBox.Name = "screensListBox";
+            screensListBox.Size = new Size(194, 64);
+            screensListBox.TabIndex = 1;
+            screensListBox.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
             // draw1
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(2560, 720);
-            this.Controls.Add(this.exit);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.KeyPreview = true;
-            this.Name = "draw1";
-            this.Text = "draw1";
-            this.Load += new System.EventHandler(this.calibration_Load);
-            this.ResumeLayout(false);
-
+            // 
+            AutoScaleDimensions = new SizeF(12F, 30F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaptionText;
+            ClientSize = new Size(2797, 1800);
+            Controls.Add(screensListBox);
+            Controls.Add(exit);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
+            Margin = new Padding(6, 8, 6, 8);
+            Name = "draw1";
+            Text = "draw1";
+            Load += calibration_Load;
+            ResumeLayout(false);
         }
 
         public static void Delay(int milliSecond)
@@ -85,11 +108,11 @@ namespace WindowsFormsApp1.othercs
         int drawpic_num = 1;
         protected override void OnPaint(PaintEventArgs e)
         {
-            string folderPath = "C:\\Users\\robert\\Documents\\BaiduSyncdisk\\winform\\";
+            string folderPath = "";
             string fileName = "newdata";
 
             string path = Path.Combine(folderPath, fileName);
-         
+
             path += System.Convert.ToString(drawpic_num) + ".txt";
             drawpic(@path);
             base.OnPaint(e);
@@ -182,5 +205,9 @@ namespace WindowsFormsApp1.othercs
             sr.Close();
         }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
