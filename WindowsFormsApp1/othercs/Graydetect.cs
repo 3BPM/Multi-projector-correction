@@ -12,7 +12,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 namespace WindowsFormsApp1.othercs
 {
-    class draw1 : Form
+    class graydetect : Form
     {
         private System.ComponentModel.IContainer components = null;
         private Pen pen;
@@ -32,7 +32,7 @@ namespace WindowsFormsApp1.othercs
         }
 
         //draw1  -------for Form1
-        public draw1()
+        public graydetect()
         {
             InitializeComponent();
             pen = new Pen(Color.Gold, 1);
@@ -108,7 +108,7 @@ namespace WindowsFormsApp1.othercs
         int drawpic_num = 1;
         protected override void OnPaint(PaintEventArgs e)
         {
-            string folderPath = "";
+            string folderPath = Properties.Settings.Default.gray图片文件夹;
             string fileName = "newdata";
 
             string path = Path.Combine(folderPath, fileName);

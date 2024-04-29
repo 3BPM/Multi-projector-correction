@@ -39,7 +39,7 @@ namespace WindowsFormsApp1.othercs
             color = new TextBox();
             label2 = new Label();
             z = new TextBox();
-            zlabel = new Label();
+            readdatalabel = new Label();
             exit = new Button();
             col = new TextBox();
             label1 = new Label();
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1.othercs
             panel1.Controls.Add(color);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(z);
-            panel1.Controls.Add(zlabel);
+            panel1.Controls.Add(readdatalabel);
             panel1.Controls.Add(exit);
             panel1.Controls.Add(col);
             panel1.Controls.Add(label1);
@@ -94,6 +94,7 @@ namespace WindowsFormsApp1.othercs
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = SystemColors.HotTrack;
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(20, 306);
             label3.Margin = new Padding(5, 0, 5, 0);
@@ -126,11 +127,12 @@ namespace WindowsFormsApp1.othercs
             // widMovLabel
             // 
             widMovLabel.AutoSize = true;
+            widMovLabel.BackColor = SystemColors.HotTrack;
             widMovLabel.ForeColor = SystemColors.Control;
             widMovLabel.Location = new Point(197, 232);
             widMovLabel.Margin = new Padding(5, 0, 5, 0);
             widMovLabel.Name = "widMovLabel";
-            widMovLabel.Size = new Size(55, 30);
+            widMovLabel.Size = new Size(57, 30);
             widMovLabel.TabIndex = 21;
             widMovLabel.Text = "清空";
             widMovLabel.Click += widMov_Click;
@@ -148,6 +150,7 @@ namespace WindowsFormsApp1.othercs
             // label2
             // 
             label2.AutoSize = true;
+            label2.BackColor = SystemColors.HotTrack;
             label2.ForeColor = SystemColors.Control;
             label2.Location = new Point(12, 232);
             label2.Margin = new Padding(5, 0, 5, 0);
@@ -166,17 +169,18 @@ namespace WindowsFormsApp1.othercs
             z.Text = "1";
             z.TextChanged += textBox6_TextChanged;
             // 
-            // zlabel
+            // readdatalabel
             // 
-            zlabel.AutoSize = true;
-            zlabel.ForeColor = SystemColors.Control;
-            zlabel.Location = new Point(20, 158);
-            zlabel.Margin = new Padding(5, 0, 5, 0);
-            zlabel.Name = "zlabel";
-            zlabel.Size = new Size(88, 30);
-            zlabel.TabIndex = 17;
-            zlabel.Text = "读入4点";
-            zlabel.Click += zlabel_Click;
+            readdatalabel.AutoSize = true;
+            readdatalabel.BackColor = SystemColors.MenuHighlight;
+            readdatalabel.ForeColor = SystemColors.Control;
+            readdatalabel.Location = new Point(20, 158);
+            readdatalabel.Margin = new Padding(5, 0, 5, 0);
+            readdatalabel.Name = "readdatalabel";
+            readdatalabel.Size = new Size(90, 30);
+            readdatalabel.TabIndex = 17;
+            readdatalabel.Text = "读入4点";
+            readdatalabel.Click += readdatalabel_Click;
             // 
             // exit
             // 
@@ -223,11 +227,12 @@ namespace WindowsFormsApp1.othercs
             // widCirLable
             // 
             widCirLable.AutoSize = true;
+            widCirLable.BackColor = SystemColors.HotTrack;
             widCirLable.ForeColor = SystemColors.Control;
             widCirLable.Location = new Point(185, 161);
             widCirLable.Margin = new Padding(5, 0, 5, 0);
             widCirLable.Name = "widCirLable";
-            widCirLable.Size = new Size(77, 30);
+            widCirLable.Size = new Size(79, 30);
             widCirLable.TabIndex = 12;
             widCirLable.Text = "生成锚";
             widCirLable.Click += widCirLable_Click;
@@ -239,20 +244,21 @@ namespace WindowsFormsApp1.othercs
             cancel.Name = "cancel";
             cancel.Size = new Size(128, 58);
             cancel.TabIndex = 11;
-            cancel.Text = "cancel";
+            cancel.Text = "删除点";
             cancel.UseVisualStyleBackColor = true;
             cancel.Click += button6_Click;
             // 
             // save
             // 
+            save.Font = new Font("Segoe UI", 8.142858F, FontStyle.Regular, GraphicsUnit.Point);
             save.Location = new Point(156, 370);
             save.Margin = new Padding(5, 8, 5, 8);
             save.Name = "save";
             save.Size = new Size(88, 58);
             save.TabIndex = 10;
-            save.Text = "save";
+            save.Text = "保存点";
             save.UseVisualStyleBackColor = true;
-            save.Click += button5_Click;
+            save.Click += savebutton_Click;
             // 
             // row
             // 
@@ -340,9 +346,9 @@ namespace WindowsFormsApp1.othercs
             label4.ForeColor = SystemColors.Info;
             label4.Location = new Point(25, 1046);
             label4.Name = "label4";
-            label4.Size = new Size(207, 30);
+            label4.Size = new Size(365, 30);
             label4.TabIndex = 24;
-            label4.Text = "注意请以顺时针标点";
+            label4.Text = "注意：请以左上到右下或顺时针标点";
             // 
             // inputdata
             // 
@@ -383,7 +389,7 @@ namespace WindowsFormsApp1.othercs
         private System.Windows.Forms.Label label1;
         private Button exit;
         private TextBox z;
-        private Label zlabel;
+        private Label readdatalabel;
         private TextBox color;
         private Label label2;
         private TextBox widMov;

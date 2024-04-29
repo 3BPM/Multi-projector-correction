@@ -32,9 +32,9 @@ namespace WindowsFormsApp1
                 Application.Exit();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void gray_Click(object sender, EventArgs e)
         {
-            Form pic1 = new draw1();
+            Form pic1 = new graydetect();
 
             pic1.Owner = this;
             pic1.StartPosition = FormStartPosition.CenterScreen;
@@ -74,6 +74,12 @@ namespace WindowsFormsApp1
                 camset.ShowDialog(this);
             else
                 Application.Exit();
+        }
+
+        private void settingsbutton_Click(object sender, EventArgs e)
+        {
+            Form settingsForm = new settingsForm();
+            settingsForm.Show();
         }
     }
 }

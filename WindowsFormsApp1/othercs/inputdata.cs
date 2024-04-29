@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
-//using System.Windows.Media;
+using WindowsFormsApp1.Properties;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 
@@ -31,7 +31,7 @@ namespace WindowsFormsApp1.othercs
         private VideoCapture _capture;
 
         //Graphics g;
-        private Pen pen = new Pen(Color.Red, 1);//宽度1像素
+        private Pen pen = new Pen(Color.Red, 5);//宽度1像素
         private System.Drawing.Point p = new System.Drawing.Point(1000, 500);
         int circlewidth = 1;
         int movewidth = 1;//像素级调整
@@ -46,8 +46,10 @@ namespace WindowsFormsApp1.othercs
         private float heighty = 0.0f;
         List<System.Drawing.Point> points = new List<System.Drawing.Point>(); // 用于存储折线的各个点
         List<OpenCvSharp.Point2f> fourcorners = new List<OpenCvSharp.Point2f>();
-        int frameWidth = 1920;
-        int frameHeight = 1080;
+        //int frameWidth = 1920;
+        //int frameHeight = 1080;
+        int frameWidth = Properties.Settings.Default.camsizew;
+        int frameHeight = Properties.Settings.Default.camsizeh;
 
         private List<Line> lines = new List<Line>(); // To store drawn lines
 
@@ -64,7 +66,7 @@ namespace WindowsFormsApp1.othercs
             try
             {
                 //output = new FileStream(path, FileMode.Append, FileAccess.Write);
-                filewrite = File.AppendText("data.txt");
+                filewrite = File.AppendText(Properties.Settings.Default.log文件保存位置);
 
 
                 //MessageBox.Show("Open/Create success!");
@@ -129,7 +131,7 @@ namespace WindowsFormsApp1.othercs
             this.x.Text = ((int)(this.widthx * this.frameWidth)).ToString();
             this.heighty = (float)mousePosition.Y / (float)scaledHeight;
             this.y.Text = ((int)(this.heighty * this.frameHeight)).ToString();
-
+            fourcorners.Add(new OpenCvSharp.Point2f((int)(this.widthx * this.frameWidth), (int)(this.heighty * this.frameHeight)));
             // Add the new mouse click location to the list
             points.Add(mousePosition);
             isDrawingL = true;
@@ -246,12 +248,12 @@ namespace WindowsFormsApp1.othercs
 
         }
 
-        private void button5_Click(object sender, EventArgs e)//save
+        private void savebutton_Click(object sender, EventArgs e)//save
         {
             // string data = this.row.Text + " " + this.col.Text + " " + this.z.Text + " " + this.x.Text + " " + this.y.Text + " " + this.widCir.Text + " " + this.color.Text;
             int xValue = Convert.ToInt32(this.x.Text);
             int yValue = Convert.ToInt32(this.y.Text);
-            fourcorners.Add(new OpenCvSharp.Point2f(xValue, yValue));
+
             string data = this.x.Text + " " + this.y.Text;
             filewrite.WriteLine(data);
             MessageBox.Show("save successfully");
@@ -541,7 +543,7 @@ namespace WindowsFormsApp1.othercs
             string currentFolderPath = Path.GetDirectoryName(Environment.CurrentDirectory);
 
             //Mat generated_aruco_img = Cv2.ImRead(@"C:\Users\robert\Documents\aruco15.png");
-            string arucodir = @"C:\Users\robert\source\repos\3BPM\test3\pyCalibration\data\aruco15.png";
+            string arucodir = Properties.Settings.Default.特征图像aruco码位置;
             Mat generated_aruco_img = Cv2.ImRead(arucodir);
             //System.Drawing.Image myImage = Properties.Resources.aruco15;
             //Mat generated_aruco_img = myImage.ToMat();
@@ -578,11 +580,9 @@ namespace WindowsFormsApp1.othercs
 
             Mat M = Cv2.GetPerspectiveTransform(pts1, pts2);
             Mat dst = new Mat();
-            Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(1920, 1080));
+            Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(frameWidth, frameHeight));
             Mat frameWithAruco = new Mat();
-            Cv2.AddWeighted(frame, 0.7, dst, 0.3, 0, frameWithAruco);
-
-            //Cv2.WarpPerspective(img, dst, M, new Size(300, 200));
+            Cv2.AddWeighted(frame, 0.5, dst, 0.5, 0, frameWithAruco);
             Cv2.ImWrite("./pic2.png", dst);
             if (!frameWithAruco.Empty())
             {
@@ -595,7 +595,7 @@ namespace WindowsFormsApp1.othercs
             }
         }
 
-        private void zlabel_Click(object sender, EventArgs e)
+        private void readdatalabel_Click(object sender, EventArgs e)
         {
 
             filewrite.Close();
@@ -623,6 +623,11 @@ namespace WindowsFormsApp1.othercs
         }
 
         private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }

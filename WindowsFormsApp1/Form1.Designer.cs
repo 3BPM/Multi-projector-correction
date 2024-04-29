@@ -42,6 +42,7 @@ namespace WindowsFormsApp1
             button3 = new System.Windows.Forms.Button();
             button4 = new System.Windows.Forms.Button();
             button5 = new System.Windows.Forms.Button();
+            settingsbutton = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // button1
@@ -65,7 +66,7 @@ namespace WindowsFormsApp1
             button2.TabIndex = 1;
             button2.Text = "gray码拍摄";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.Click += gray_Click;
             // 
             // button3
             // 
@@ -96,11 +97,22 @@ namespace WindowsFormsApp1
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
+            // settingsbutton
+            // 
+            settingsbutton.Location = new System.Drawing.Point(370, 547);
+            settingsbutton.Name = "settingsbutton";
+            settingsbutton.Size = new System.Drawing.Size(131, 40);
+            settingsbutton.TabIndex = 4;
+            settingsbutton.Text = "设置";
+            settingsbutton.UseVisualStyleBackColor = true;
+            settingsbutton.Click += settingsbutton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(568, 652);
+            Controls.Add(settingsbutton);
             Controls.Add(button5);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -116,6 +128,7 @@ namespace WindowsFormsApp1
         #endregion
 
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button settingsbutton;
     }
 }
 
