@@ -19,9 +19,10 @@ namespace WindowsFormsApp1.othercs
         private Pen pen1;
         private Graphics g;
         private System.Windows.Forms.Button exit;
-        private ListBox screensListBox;
-        List<string> lines = new List<string>(File.ReadAllLines("data.txt"));
-
+        private ComboBox comboBoxMonitors;
+        List<string> lines = new List<string>(File.ReadAllLines(Properties.Settings.Default.log文件保存位置));
+        private Button button1;
+        int drawpic_num = 1;
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -40,21 +41,13 @@ namespace WindowsFormsApp1.othercs
             // pen.DashStyle = DashStyle.Custom;
             //pen.DashPattern = new float[] { 4f, 40f };
             g = this.CreateGraphics();
-            this.screensListBox = new ListBox();
-            this.screensListBox.Dock = DockStyle.Fill;
-            this.Controls.Add(this.screensListBox);
-
-            foreach (var screen in Screen.AllScreens)
-            {
-                string screenInfo = $"Projector {screen.DeviceName} [{screen.Bounds.Width}x{screen.Bounds.Height}]";
-                this.screensListBox.Items.Add(screenInfo);
-            }
         }
 
         private void InitializeComponent()
         {
             exit = new Button();
-            screensListBox = new ListBox();
+            comboBoxMonitors = new ComboBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // exit
@@ -68,44 +61,91 @@ namespace WindowsFormsApp1.othercs
             exit.UseVisualStyleBackColor = true;
             exit.Click += button1_Click;
             // 
-            // screensListBox
+            // comboBoxMonitors
             // 
-            screensListBox.FormattingEnabled = true;
-            screensListBox.ItemHeight = 30;
-            screensListBox.Location = new Point(44, 30);
-            screensListBox.Name = "screensListBox";
-            screensListBox.Size = new Size(194, 64);
-            screensListBox.TabIndex = 1;
-            screensListBox.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            comboBoxMonitors.FormattingEnabled = true;
+            comboBoxMonitors.Location = new Point(44, 109);
+            comboBoxMonitors.Name = "comboBoxMonitors";
+            comboBoxMonitors.Size = new Size(212, 38);
+            comboBoxMonitors.TabIndex = 2;
+            comboBoxMonitors.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // draw1
+            // button1
+            // 
+            button1.Location = new Point(292, 109);
+            button1.Name = "button1";
+            button1.Size = new Size(131, 40);
+            button1.TabIndex = 3;
+            button1.Text = "开始";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
+            // 
+            // graydetect
             // 
             AutoScaleDimensions = new SizeF(12F, 30F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(2797, 1800);
-            Controls.Add(screensListBox);
+            Controls.Add(button1);
+            Controls.Add(comboBoxMonitors);
             Controls.Add(exit);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             KeyPreview = true;
             Margin = new Padding(6, 8, 6, 8);
-            Name = "draw1";
+            Name = "graydetect";
             Text = "draw1";
             Load += calibration_Load;
             ResumeLayout(false);
         }
 
-        public static void Delay(int milliSecond)
+        private void LoadMonitors()
         {
-            int start = Environment.TickCount;
-            while (Math.Abs(Environment.TickCount - start) < milliSecond)
+            for (int i = 0; i < Screen.AllScreens.Length; i++)
             {
-                Application.DoEvents();
+                comboBoxMonitors.Items.Add($"显示器 {i + 1} - {Screen.AllScreens[i].DeviceName}");
+            }
+            comboBoxMonitors.SelectedIndex = 0; // 默认选择第一个显示器
+        }
+
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            int selectedMonitorIndex = comboBoxMonitors.SelectedIndex;
+            for (int i = 0; i < Screen.AllScreens.Length; i++)
+            {
+                Form fullpicture = new fullpicture
+                {
+                    BackColor = i == selectedMonitorIndex ? Color.White : Color.Black,
+                    WindowState = FormWindowState.Maximized,
+                    FormBorderStyle = FormBorderStyle.None,
+                    TopMost = true
+                };
+
+                fullpicture.Location = Screen.AllScreens[i].Bounds.Location;
+                fullpicture.Show();
+            }
+
+            if (selectedMonitorIndex >= 0 && selectedMonitorIndex < Screen.AllScreens.Length)
+            {
+                fullpicture imagefullpicture = new fullpicture
+                {
+                    BackgroundImage = Image.FromFile("path_to_your_image.jpg"),
+                    BackgroundImageLayout = ImageLayout.Stretch
+                };
+                imagefullpicture.StartPosition = FormStartPosition.Manual;
+                imagefullpicture.Location = Screen.AllScreens[selectedMonitorIndex].Bounds.Location;
+                imagefullpicture.WindowState = FormWindowState.Maximized;
+                imagefullpicture.FormBorderStyle = FormBorderStyle.None;
+                imagefullpicture.TopMost = true;
+                imagefullpicture.Show();
             }
         }
 
-        int drawpic_num = 1;
+        //this.Hide(); // 隐藏配置窗口
+
+
+
+
         protected override void OnPaint(PaintEventArgs e)
         {
             string folderPath = Properties.Settings.Default.gray图片文件夹;
@@ -124,6 +164,15 @@ namespace WindowsFormsApp1.othercs
         }
         void calibration_Paint(object sender, PaintEventArgs e)
         {
+            void Delay(int milliSecond)
+            {
+                int start = Environment.TickCount;
+                while (Math.Abs(Environment.TickCount - start) < milliSecond)
+                {
+                    Application.DoEvents();
+                }
+            }
+
             if (drawpic_num < 8)
                 drawpic_num++;
 
@@ -206,6 +255,16 @@ namespace WindowsFormsApp1.othercs
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
         {
 
         }

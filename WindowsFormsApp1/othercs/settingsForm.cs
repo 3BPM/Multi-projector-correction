@@ -43,5 +43,55 @@ namespace WindowsFormsApp1.othercs
         {
 
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Application.StartupPath; // 初始目录
+                openFileDialog.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*"; // 文件筛选器
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 获取选中文件的路径
+                    textBox1.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Application.StartupPath; // 初始目录
+
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 获取选中文件的路径
+                    textBox2.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            // 这里可以添加保存设置的代码
+            SaveSettings();  // 假设你有一个SaveSettings方法来处理设置的保存
+
+            this.Close();  // 关闭窗口
+        }
+
+        // 假设的保存设置方法
+        private void SaveSettings()
+        {
+            // 保存设置的逻辑
+            // 例如，保存textBoxPath.Text到配置文件或数据库
+            Console.WriteLine("设置已保存: " + textBox1.Text);
+        }
     }
 }

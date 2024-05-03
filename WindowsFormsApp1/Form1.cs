@@ -81,5 +81,15 @@ namespace WindowsFormsApp1
             Form settingsForm = new settingsForm();
             settingsForm.Show();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form vi = new Videocallpy();
+            vi.Owner = this;
+            vi.StartPosition = FormStartPosition.CenterScreen;
+            this.Hide();
+            vi.ShowDialog(this);
+
+        }
     }
 }

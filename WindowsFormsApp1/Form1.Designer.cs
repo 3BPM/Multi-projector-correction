@@ -43,6 +43,7 @@ namespace WindowsFormsApp1
             button4 = new System.Windows.Forms.Button();
             button5 = new System.Windows.Forms.Button();
             settingsbutton = new System.Windows.Forms.Button();
+            button6 = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // button1
@@ -107,11 +108,22 @@ namespace WindowsFormsApp1
             settingsbutton.UseVisualStyleBackColor = true;
             settingsbutton.Click += settingsbutton_Click;
             // 
+            // button6
+            // 
+            button6.Location = new System.Drawing.Point(333, 112);
+            button6.Name = "button6";
+            button6.Size = new System.Drawing.Size(140, 54);
+            button6.TabIndex = 5;
+            button6.Text = "button6";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(568, 652);
+            Controls.Add(button6);
             Controls.Add(settingsbutton);
             Controls.Add(button5);
             Controls.Add(button3);
@@ -129,6 +141,7 @@ namespace WindowsFormsApp1
 
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button settingsbutton;
+        private System.Windows.Forms.Button button6;
     }
 }
 

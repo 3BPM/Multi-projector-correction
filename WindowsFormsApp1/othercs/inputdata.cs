@@ -82,12 +82,6 @@ namespace WindowsFormsApp1.othercs
             comboBox1.DataSource = cameras;
             comboBox1.DisplayMember = "Name";
 
-            //// 创建自定义项模板
-            //ComboBoxItemTemplate template = new ComboBoxItemTemplate();
-            //template.Text = "${Name} - ${Status}";
-
-            //// 将模板应用于 ComboBox
-            //comboBox1.ItemTemplate = template;
 
             this.x.Text = "0";
             this.y.Text = "0";
