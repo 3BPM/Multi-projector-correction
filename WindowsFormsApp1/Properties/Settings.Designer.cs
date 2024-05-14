@@ -146,12 +146,12 @@ namespace WindowsFormsApp1.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\robert\\Pictures\\Camera Roll\\WIN_20240312_16_03_37_Pro.jpg")]
-        public string 检测点位置 {
+        public string 内接矩形图片 {
             get {
-                return ((string)(this["检测点位置"]));
+                return ((string)(this["内接矩形图片"]));
             }
             set {
-                this["检测点位置"] = value;
+                this["内接矩形图片"] = value;
             }
         }
         
@@ -188,6 +188,18 @@ namespace WindowsFormsApp1.Properties {
             }
             set {
                 this["纵向位置个数"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\robert\\Desktop\\data.txt")]
+        public string 锚点保存位置 {
+            get {
+                return ((string)(this["锚点保存位置"]));
+            }
+            set {
+                this["锚点保存位置"] = value;
             }
         }
     }

@@ -20,7 +20,7 @@ namespace WindowsFormsApp1.othercs
 
         private static void Test()
         {
-            var src = Cv2.ImRead(Properties.Settings.Default.检测点位置, ImreadModes.Color);
+            var src = Cv2.ImRead(Properties.Settings.Default.内接矩形图片, ImreadModes.Color);
             var dst = new Mat();
             Cv2.CvtColor(src, dst, ColorConversionCodes.RGB2GRAY);
             Cv2.FindContours(dst, out var contours, out var hierarchy, RetrievalModes.External,

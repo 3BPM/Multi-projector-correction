@@ -32,7 +32,7 @@
     <Setting Name="预投影画面高度" Type="System.String" Scope="User">
       <Value Profile="(Default)">600</Value>
     </Setting>
-    <Setting Name="检测点位置" Type="System.String" Scope="User">
+    <Setting Name="内接矩形图片" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\robert\Pictures\Camera Roll\WIN_20240312_16_03_37_Pro.jpg</Value>
     </Setting>
     <Setting Name="投影机个数" Type="System.String" Scope="User">
@@ -43,6 +43,9 @@
     </Setting>
     <Setting Name="纵向位置个数" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="锚点保存位置" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\robert\Desktop\data.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -51,6 +51,9 @@
             label8 = new System.Windows.Forms.Label();
             textBox9 = new System.Windows.Forms.TextBox();
             label9 = new System.Windows.Forms.Label();
+            button5 = new System.Windows.Forms.Button();
+            label10 = new System.Windows.Forms.Label();
+            textBox10 = new System.Windows.Forms.TextBox();
             SuspendLayout();
             // 
             // textBox1
@@ -133,9 +136,10 @@
             label3.AutoSize = true;
             label3.Location = new System.Drawing.Point(30, 216);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(120, 30);
+            label3.Size = new System.Drawing.Size(119, 30);
             label3.TabIndex = 8;
-            label3.Text = "检测点位置";
+            label3.Text = "求矩形图片";
+            label3.Click += label3_Click;
             // 
             // textBox3
             // 
@@ -253,11 +257,40 @@
             label9.TabIndex = 21;
             label9.Text = "size";
             // 
+            // button5
+            // 
+            button5.Location = new System.Drawing.Point(671, 324);
+            button5.Name = "button5";
+            button5.Size = new System.Drawing.Size(131, 40);
+            button5.TabIndex = 25;
+            button5.Text = "位置";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(30, 324);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(98, 30);
+            label10.TabIndex = 24;
+            label10.Text = "锚点位置";
+            // 
+            // textBox10
+            // 
+            textBox10.Location = new System.Drawing.Point(252, 329);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new System.Drawing.Size(397, 35);
+            textBox10.TabIndex = 23;
+            textBox10.TextChanged += textBox10_TextChanged;
+            // 
             // settingsForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(849, 715);
+            Controls.Add(button5);
+            Controls.Add(label10);
+            Controls.Add(textBox10);
             Controls.Add(textBox9);
             Controls.Add(label9);
             Controls.Add(textBox8);
@@ -313,5 +346,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox10;
     }
 }

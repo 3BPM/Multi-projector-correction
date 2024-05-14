@@ -102,7 +102,7 @@ namespace WindowsFormsApp1.othercs
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.检测点位置 = textBox3.Text;
+            Properties.Settings.Default.内接矩形图片 = textBox3.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -143,6 +143,17 @@ namespace WindowsFormsApp1.othercs
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.锚点保存位置 = textBox4.Text;
+            Properties.Settings.Default.Save();
         }
     }
 }
