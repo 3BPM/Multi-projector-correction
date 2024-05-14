@@ -17,14 +17,14 @@ namespace WindowsFormsApp1.othercs
             InitializeComponent();
 
             // 显示当前设置
-            textBox1.Text = Properties.Settings.Default.特征图像aruco码位置;
+            textBox1.Text = Properties.Settings.Default.图像位置_原aruco;
             textBox2.Text = Properties.Settings.Default.log文件保存位置;
         }
 
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.特征图像aruco码位置 = textBox1.Text;
+            Properties.Settings.Default.图像位置_原aruco = textBox1.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -92,6 +92,57 @@ namespace WindowsFormsApp1.othercs
             // 保存设置的逻辑
             // 例如，保存textBoxPath.Text到配置文件或数据库
             Console.WriteLine("设置已保存: " + textBox1.Text);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.log文件保存位置 = textBox4.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.检测点位置 = textBox3.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Application.StartupPath; // 初始目录
+
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 获取选中文件的路径
+                    textBox3.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Application.StartupPath; // 初始目录
+
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 获取选中文件的路径
+                    textBox4.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

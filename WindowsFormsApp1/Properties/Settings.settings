@@ -5,20 +5,20 @@
     <Setting Name="设置" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="特征图像aruco码位置" Type="System.String" Scope="User">
-      <Value Profile="(Default)">E:\5graduateproject\5.2re\test3\WindowsFormsApp1\images\aruco15.png</Value>
+    <Setting Name="图像位置_原aruco" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\robert\Pictures\Screenshots\Screenshot 2024-03-19 010206.png</Value>
     </Setting>
     <Setting Name="log文件保存位置" Type="System.String" Scope="User">
-      <Value Profile="(Default)">E:\5graduateproject\5.2re\test3\WindowsFormsApp1\images\log.txt</Value>
+      <Value Profile="(Default)">C:\Users\robert\Desktop\复试面试.txt</Value>
     </Setting>
     <Setting Name="gray图片文件夹" Type="System.String" Scope="User">
       <Value Profile="(Default)">E:\5graduateproject\5.2re\test3\pyCalibration\data\240415\captured\position_00a</Value>
     </Setting>
     <Setting Name="camsizew" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">640</Value>
+      <Value Profile="(Default)">1280</Value>
     </Setting>
     <Setting Name="camsizeh" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">360</Value>
+      <Value Profile="(Default)">720</Value>
     </Setting>
     <Setting Name="prosizew" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1280</Value>
@@ -31,6 +31,18 @@
     </Setting>
     <Setting Name="预投影画面高度" Type="System.String" Scope="User">
       <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="检测点位置" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\robert\Pictures\Camera Roll\WIN_20240312_16_03_37_Pro.jpg</Value>
+    </Setting>
+    <Setting Name="投影机个数" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="横向位置个数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+    <Setting Name="纵向位置个数" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9</Value>
     </Setting>
   </Settings>
 </SettingsFile>

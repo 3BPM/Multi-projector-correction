@@ -135,7 +135,7 @@ namespace WindowsFormsApp1.othercs
             widMovLabel.Size = new Size(57, 30);
             widMovLabel.TabIndex = 21;
             widMovLabel.Text = "清空";
-            widMovLabel.Click += widMov_Click;
+            widMovLabel.Click += clear_Click;
             // 
             // color
             // 
@@ -235,7 +235,7 @@ namespace WindowsFormsApp1.othercs
             widCirLable.Size = new Size(79, 30);
             widCirLable.TabIndex = 12;
             widCirLable.Text = "生成锚";
-            widCirLable.Click += widCirLable_Click;
+            widCirLable.Click += generatepic_Click;
             // 
             // cancel
             // 

@@ -45,7 +45,7 @@ namespace WindowsFormsApp1.othercs
         private float widthx = 0.0f;//ratio
         private float heighty = 0.0f;
         List<System.Drawing.Point> points = new List<System.Drawing.Point>(); // 用于存储折线的各个点
-        List<OpenCvSharp.Point2f> fourcorners = new List<OpenCvSharp.Point2f>();
+        Queue<OpenCvSharp.Point2f> fourcorners = new Queue<OpenCvSharp.Point2f>(4);
         //int frameWidth = 1920;
         //int frameHeight = 1080;
         int frameWidth = Properties.Settings.Default.camsizew;
@@ -125,7 +125,7 @@ namespace WindowsFormsApp1.othercs
             this.x.Text = ((int)(this.widthx * this.frameWidth)).ToString();
             this.heighty = (float)mousePosition.Y / (float)scaledHeight;
             this.y.Text = ((int)(this.heighty * this.frameHeight)).ToString();
-            fourcorners.Add(new OpenCvSharp.Point2f((int)(this.widthx * this.frameWidth), (int)(this.heighty * this.frameHeight)));
+            fourcorners.Enqueue(new OpenCvSharp.Point2f((int)(this.widthx * this.frameWidth), (int)(this.heighty * this.frameHeight)));
             // Add the new mouse click location to the list
             points.Add(mousePosition);
             isDrawingL = true;
@@ -154,9 +154,6 @@ namespace WindowsFormsApp1.othercs
                 {
                     lines.Add(line);
                 }
-
-
-
                 // Redraw the points and lines on the PictureBox
                 pictureBox1.Invalidate();
             }
@@ -173,14 +170,7 @@ namespace WindowsFormsApp1.othercs
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            //MessageBox.Show("按下！");
-            //if (isDrawingL)
-            //{
-            //    // 结束矩形绘制
-            //    isDrawingL = false;
-            //    var pictureBox = (PictureBox)sender;
-            //    pictureBox.Invalidate();
-            //}
+
         }
         protected override bool ProcessDialogKey(Keys keyData)
         {
@@ -370,7 +360,7 @@ namespace WindowsFormsApp1.othercs
                 movewidth = Convert.ToInt32(this.widMov.Text);
         }
 
-        private void widMov_Click(object sender, EventArgs e)
+        private void clear_Click(object sender, EventArgs e)
         {
             lines.Clear();
             points.Clear();
@@ -530,14 +520,14 @@ namespace WindowsFormsApp1.othercs
             }
         }
 
-        private void widCirLable_Click(object sender, EventArgs e)
+        private void generatepic_Click(object sender, EventArgs e)
         {
             Mat frame = new Mat();
             _capture.Read(frame); // 读取视频帧
             string currentFolderPath = Path.GetDirectoryName(Environment.CurrentDirectory);
 
             //Mat generated_aruco_img = Cv2.ImRead(@"C:\Users\robert\Documents\aruco15.png");
-            string arucodir = Properties.Settings.Default.特征图像aruco码位置;
+            string arucodir = Properties.Settings.Default.图像位置_原aruco;
             Mat generated_aruco_img = Cv2.ImRead(arucodir);
             //System.Drawing.Image myImage = Properties.Resources.aruco15;
             //Mat generated_aruco_img = myImage.ToMat();
@@ -553,8 +543,8 @@ namespace WindowsFormsApp1.othercs
 
             OpenCvSharp.Point2f[] pts1 = new OpenCvSharp.Point2f[] { new OpenCvSharp.Point2f(0, 0), new OpenCvSharp.Point2f(width, 0), new OpenCvSharp.Point2f(width, height), new OpenCvSharp.Point2f(0, height) };
             // 读取左上角和右下角两个点
-            OpenCvSharp.Point2f topLeft = fourcorners[0];
-            OpenCvSharp.Point2f bottomRight = fourcorners[1];
+            OpenCvSharp.Point2f topLeft = fourcorners.Dequeue();
+            OpenCvSharp.Point2f bottomRight = fourcorners.Dequeue();
 
             // 生成矩形的四个顶点
             OpenCvSharp.Point2f topRight = new OpenCvSharp.Point2f(bottomRight.X, topLeft.Y);
@@ -564,20 +554,44 @@ namespace WindowsFormsApp1.othercs
             fourcorners.Clear();
 
             // 添加生成的四个矩形顶点
-            fourcorners.Add(topLeft);
-            fourcorners.Add(topRight);
-            fourcorners.Add(bottomRight);
-            fourcorners.Add(bottomLeft);
+            fourcorners.Enqueue(topLeft);
+            fourcorners.Enqueue(topRight);
+            fourcorners.Enqueue(bottomRight);
+            fourcorners.Enqueue(bottomLeft);
+            int m = 5; // Number of points horizontally
+            int n = 4; // Number of points vertically
+            float spacingX = frame.Width / (m + 1);
+            float spacingY = frame.Height / (n + 1);
+
+            List<OpenCvSharp.Point2f> gridPoints = new List<OpenCvSharp.Point2f>();
+
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    float x = j * spacingX;
+                    float y = i * spacingY;
+                    gridPoints.Add(new OpenCvSharp.Point2f(x, y));
+
+                }
+            }
+
+            // Write the coordinates to a text file
+            using (StreamWriter sw = new StreamWriter("gridPoints.txt"))
+            {
+                foreach (var point in gridPoints)
+                {
+                    sw.WriteLine($"{point.X} {point.Y}");
+                }
+            }
 
             OpenCvSharp.Point2f[] pts2 = fourcorners.ToArray();
-
-
             Mat M = Cv2.GetPerspectiveTransform(pts1, pts2);
             Mat dst = new Mat();
             Cv2.WarpPerspective(generated_aruco_img, dst, M, new OpenCvSharp.Size(frameWidth, frameHeight));
             Mat frameWithAruco = new Mat();
             Cv2.AddWeighted(frame, 0.5, dst, 0.5, 0, frameWithAruco);
-            Cv2.ImWrite("./pic2.png", dst);
+            // Cv2.ImWrite("./pic2.png", dst);
             if (!frameWithAruco.Empty())
             {
 
@@ -603,7 +617,7 @@ namespace WindowsFormsApp1.othercs
                 {
                     float x = float.Parse(parts[0]);
                     float y = float.Parse(parts[1]);
-                    fourcorners.Add(new OpenCvSharp.Point2f(x, y));
+                    fourcorners.Enqueue(new OpenCvSharp.Point2f(x, y));
                 }
             }
             foreach (var point in fourcorners)

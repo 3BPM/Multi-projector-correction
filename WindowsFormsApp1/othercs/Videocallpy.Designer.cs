@@ -56,7 +56,7 @@ namespace WindowsFormsApp1.othercs
             // 
             // button1
             // 
-            button1.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Font = new Font("Microsoft YaHei", 12F);
             button1.Location = new Point(1056, 44);
             button1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             button1.Name = "button1";
@@ -68,7 +68,7 @@ namespace WindowsFormsApp1.othercs
             // 
             // button2
             // 
-            button2.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button2.Font = new Font("Microsoft YaHei", 12F);
             button2.Location = new Point(546, 44);
             button2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             button2.Name = "button2";
@@ -80,7 +80,7 @@ namespace WindowsFormsApp1.othercs
             // 
             // button3
             // 
-            button3.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button3.Font = new Font("Microsoft YaHei", 12F);
             button3.Location = new Point(801, 44);
             button3.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             button3.Name = "button3";
@@ -105,19 +105,19 @@ namespace WindowsFormsApp1.othercs
             // 
             // button4
             // 
-            button4.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button4.Font = new Font("Microsoft YaHei", 12F);
             button4.Location = new Point(36, 44);
             button4.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             button4.Name = "button4";
             button4.Size = new Size(216, 94);
             button4.TabIndex = 12;
-            button4.Text = "人脸识别";
+            button4.Text = "py脚本";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
             // button5
             // 
-            button5.Font = new Font("微软雅黑", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button5.Font = new Font("Microsoft YaHei", 12F);
             button5.Location = new Point(291, 44);
             button5.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             button5.Name = "button5";

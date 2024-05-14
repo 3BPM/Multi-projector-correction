@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Emgu.CV;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +19,12 @@ namespace WindowsFormsApp1.othercs
     {
 
 
+        public calibration()
+        {
 
-
-        private void calibration_Load(object sender, EventArgs e)
+            InitializeComponent();
+        }
+            private void calibration_Load(object sender, EventArgs e)
         {
 
             this.Paint += calibration_Paint;

@@ -44,6 +44,7 @@ namespace WindowsFormsApp1
             button5 = new System.Windows.Forms.Button();
             settingsbutton = new System.Windows.Forms.Button();
             button6 = new System.Windows.Forms.Button();
+            button7 = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // button1
@@ -114,15 +115,26 @@ namespace WindowsFormsApp1
             button6.Name = "button6";
             button6.Size = new System.Drawing.Size(140, 54);
             button6.TabIndex = 5;
-            button6.Text = "button6";
+            button6.Text = "videocap2";
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
+            // 
+            // button7
+            // 
+            button7.Location = new System.Drawing.Point(333, 234);
+            button7.Name = "button7";
+            button7.Size = new System.Drawing.Size(168, 54);
+            button7.TabIndex = 6;
+            button7.Text = "最大正内接矩形";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(568, 652);
+            Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(settingsbutton);
             Controls.Add(button5);
@@ -142,6 +154,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button settingsbutton;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
 
